@@ -27,32 +27,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIT.Taskboard.Interface", "AIT.Taskboard.Interface\AIT.Taskboard.Interface.csproj", "{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 6
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://teamservice.aitag.com/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = AIT.Taskboard.Model\\AIT.Taskboard.Model.csproj
-		SccProjectTopLevelParentUniqueName1 = AIT.Taskboard.Application.sln
-		SccProjectName1 = AIT.Taskboard.Model
-		SccLocalPath1 = AIT.Taskboard.Model
-		SccProjectUniqueName2 = AIT.Taskboard.ViewModel\\AIT.Taskboard.ViewModel.csproj
-		SccProjectTopLevelParentUniqueName2 = AIT.Taskboard.Application.sln
-		SccProjectName2 = AIT.Taskboard.ViewModel
-		SccLocalPath2 = AIT.Taskboard.ViewModel
-		SccProjectUniqueName3 = AIT.Taskboard.UnitTests\\AIT.Taskboard.UnitTests.csproj
-		SccProjectTopLevelParentUniqueName3 = AIT.Taskboard.Application.sln
-		SccProjectName3 = AIT.Taskboard.UnitTests
-		SccLocalPath3 = AIT.Taskboard.UnitTests
-		SccProjectUniqueName4 = AIT.Taskboard.Interface\\AIT.Taskboard.Interface.csproj
-		SccProjectTopLevelParentUniqueName4 = AIT.Taskboard.Application.sln
-		SccProjectName4 = AIT.Taskboard.Interface
-		SccLocalPath4 = AIT.Taskboard.Interface
-		SccProjectUniqueName5 = AIT.Taskboard.Application\\AIT.Taskboard.Application.csproj
-		SccProjectTopLevelParentUniqueName5 = AIT.Taskboard.Application.sln
-		SccProjectName5 = AIT.Taskboard.Application
-		SccLocalPath5 = AIT.Taskboard.Application
-	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = AIT.Taskboard.Application.vsmdi
 	EndGlobalSection
