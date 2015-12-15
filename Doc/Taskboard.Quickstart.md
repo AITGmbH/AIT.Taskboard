@@ -2,14 +2,6 @@ Quick Start
 
 ![](./media/image3.png)
 
-Copyright
-
-This documentation is provided by AIT Applied Information Technologies
-GmbH & Co. KG, Leitzstr. 45, 70469 Stuttgart, Germany.
-
-The content of this document is the intellectual property of the AIT AG
-and its involved customer respectively. © 2010 AIT GmbH & Co.KG
-
 Table of Contents
 
 System Requirements
@@ -60,8 +52,8 @@ Ribbon Usage
 
 ![](./media/image6.png)
 
-<span id="_Ref233187048" class="anchor"><span id="_Toc274073780" class="anchor"></span></span>Connect 
-------------------------------------------------------------------------------------------------------
+Connect 
+-------
 
 Click on *Connect* to connect to your Team Foundation Server. When
 clicking Connect to TFS the following dialog will be shown which allows
@@ -82,8 +74,8 @@ New
 Select *New* to create a new task board configuration. After choosing
 your file the Settings dialog will be shown.
 
-<span id="_Ref261390238" class="anchor"><span id="_Toc274073783" class="anchor"></span></span>Edit 
----------------------------------------------------------------------------------------------------
+Edit 
+----
 
 Select *Edit* in order to configure your task board settings.
 
@@ -123,11 +115,12 @@ which will open a color picker that allows you to select a color.
 
 The buttons between the lists have the following purpose:
 
-  ![](./media/image9.png)    Adds a new Custom State to the list.
-  -------------------------- ---------------------------------------------------
-  ![](./media/image10.png)   Removes the selected Custom State from the list.
-  ![](./media/image11.png)   Moves the selected Custom State up in the list.
-  ![](./media/image12.png)   Moves the selected Custom State down in the list.
+  Symbol                     |Description
+  ---------------------------|------------------------------------------------
+  ![](./media/image9.png)    |Adds a new Custom State to the list.
+  ![](./media/image10.png)   |Removes the selected Custom State from the list.
+  ![](./media/image11.png)   |Moves the selected Custom State up in the list.
+  ![](./media/image12.png)   |Moves the selected Custom State down in the list.
 
 The drop down *Query* allows you to select a query from your Team
 Project. Any filtering or sorting should be applied in the query. In
@@ -181,7 +174,7 @@ your work item styles. For more information about extending the work
 item visualization see chapter 7 “Extending the work item
 visualization”.
 
-<span id="_Ref261390619" class="anchor"><span id="_Toc274073787" class="anchor"></span></span>Assigned To
+Assigned To
 ---------------------------------------------------------------------------------------------------------
 
 The combo box *Assigned To* allows you to filter the task board for
@@ -257,8 +250,7 @@ In order to change the state of a work item you can drag it from one
 state to another. Dropping a work item on a state is only possible if
 the work items state model supports switching to that state.
 
-For each backlog item a summary is shown which we refer to as <span
-id="RowSummary" class="anchor"></span>Row Summary. The row summary shows
+For each backlog item a summary is shown which we refer to as Row Summary. The row summary shows
 a bar that reflects the values for each state. Which value to consider
 can be configured in the Settings dialog (See 4.4 Edit )
 
@@ -278,8 +270,7 @@ When the task board is filtered (see 4.8 Assigned To) the bar reflects
 in faded colors the overall summary and in normal colors the values for
 the person currently filtered.
 
-For each state a summary is shown which we refer to as <span
-id="ColumnSummary" class="anchor"></span>Column Summary. The column
+For each state a summary is shown which we refer to as Column Summary. The column
 summary shows a numeric value for each state. Which values to consider
 can be configured in the Settings dialog (See 4.4 Edit ).
 
@@ -307,18 +298,19 @@ Caption 12: Report control with expanded report parameter panel
 
 Caption 13: Report control with collapsed report parameter panel
 
-<span id="_Ref265828852" class="anchor"><span id="_Toc274073795" class="anchor"></span></span>Extending the work item visualization
-===================================================================================================================================
+Extending the work item visualization
+=====================================
 
 The AIT TeamSystemPro Task Board is built on WPF technology. It uses
 [Data Templates](http://msdn.microsoft.com/en-us/library/ms742521.aspx)
 to define the visual appearance of a work item. The templates must be
 packaged in a XAML file containing a resource dictionary:
 
-&lt;ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"\
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"\
-&lt;/ResourceDictionary&gt;
-
+```xml
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  ...
+</ResourceDictionary>
+```
 You can specify a Data Template for each Work Item Type. The Data
 Templates must be named using the following naming schema:
 
@@ -330,89 +322,87 @@ spaces
 The following table shows some samples for work item types and the
 corresponding data template keys:
 
-  Work Item Type Name   Data Template Key
-  --------------------- -----------------------------
-  User Story            UserStoryWorkItemTemplate
-  Requirement           RequirementWorkItemTemplate
-  Task                  TaskWorkItemTemplate
+  Work Item Type Name   |Data Template Key
+  --------------------- |-----------------------------
+  User Story            |UserStoryWorkItemTemplate
+  Requirement           |RequirementWorkItemTemplate
+  Task                  |TaskWorkItemTemplate
 
 The data context for each work item template is a
-[WorkItem](http://msdn.microsoft.com/en-us/library/microsoft.teamfoundation.workitemtracking.client.workitem(VS.80).aspx)
+[WorkItem][workitem]
 object. A simple template for a task work item is shown below:
 
-&lt;DataTemplate x:Key="TaskWorkItemTemplate"&gt;\
-    &lt;Grid&gt;\
-        &lt;Grid.ColumnDefinitions&gt;\
-            &lt;ColumnDefinition Width="Auto" /&gt;\
-            &lt;ColumnDefinition Width="\*" /&gt;\
-        &lt;/Grid.ColumnDefinitions&gt;\
-        &lt;Grid.RowDefinitions&gt;\
-            &lt;RowDefinition Height="Auto" /&gt;\
-            &lt;RowDefinition Height="\*" /&gt;\
-            &lt;RowDefinition Height="Auto" /&gt;\
-            &lt;RowDefinition Height="Auto" /&gt;\
-        &lt;/Grid.RowDefinitions&gt;\
-        &lt;Image Source="Images\\Task.png" Grid.ColumnSpan="2" Grid.RowSpan="2" Opacity=".2" /&gt;\
-        &lt;Image Source="SmallImages\\forbidden.png" Grid.Column="1" Margin="2" Width="16" Height="16" \
-               HorizontalAlignment="Right" &gt;\
-            &lt;Image.Visibility&gt;\
-                &lt;Binding Converter="{StaticResource BlockedConverter}" ConverterParameter="Blocked" /&gt;\
-            &lt;/Image.Visibility&gt;\
-        &lt;/Image&gt;\
-        &lt;TextBlock Grid.Column="1" Margin="2" Text="{Binding Path=Id}" /&gt;\
-        &lt;TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="2" Text="{Binding Path=Title}" \
-                   TextTrimming="CharacterEllipsis" TextWrapping="Wrap" /&gt;\
-        &lt;TextBlock Grid.Row="2" Grid.ColumnSpan="2" TextTrimming="CharacterEllipsis"&gt;\
-            &lt;TextBlock.Text&gt;\
-                &lt;Binding Path="Fields\[Assigned To\].Value" /&gt;\
-            &lt;/TextBlock.Text&gt;\
-        &lt;/TextBlock&gt;\
-        &lt;StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal"&gt;\
-            &lt;TextBlock&gt;\
-                &lt;TextBlock.Text&gt;\
-                    &lt;Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" \
-                             ConverterParameter="Baseline Work" /&gt;\
-                &lt;/TextBlock.Text&gt;\
-            &lt;/TextBlock&gt;\
-            &lt;TextBlock&gt;\
-                &lt;TextBlock.Text&gt;\
-                    &lt;Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" \
-                             ConverterParameter="Original Estimate" /&gt;\
-                &lt;/TextBlock.Text&gt;\
-            &lt;/TextBlock&gt;\
-\
-            &lt;TextBlock Text=" / " /&gt;\
-            &lt;TextBlock&gt;\
-                &lt;TextBlock.Text&gt;\
-                    &lt;Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" \
-                             ConverterParameter="Remaining Work" /&gt;\
-                &lt;/TextBlock.Text&gt;\
-            &lt;/TextBlock&gt;\
-            &lt;TextBlock Text=" / " /&gt;\
-            &lt;TextBlock &gt;\
-                &lt;TextBlock.Text&gt;\
-                    &lt;Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" \
-                             ConverterParameter="Completed Work" /&gt;\
-                &lt;/TextBlock.Text&gt;\
-            &lt;/TextBlock&gt;\
-        &lt;/StackPanel&gt;\
-    &lt;/Grid&gt;\
-&lt;/DataTemplate&gt;
+```xml
+<DataTemplate x:Key="TaskWorkItemTemplate">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="\*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="\*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Image Source="Images\\Task.png" Grid.ColumnSpan="2" Grid.RowSpan="2" Opacity=".2" />
+        <Image Source="SmallImages\\forbidden.png" Grid.Column="1" Margin="2" Width="16" Height="16" HorizontalAlignment="Right" >
+            <Image.Visibility>
+                <Binding Converter="{StaticResource BlockedConverter}" ConverterParameter="Blocked" />
+            </Image.Visibility>
+        </Image>
+        <TextBlock Grid.Column="1" Margin="2" Text="{Binding Path=Id}" />
+        <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="2" Text="{Binding Path=Title}" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" />
+        <TextBlock Grid.Row="2" Grid.ColumnSpan="2" TextTrimming="CharacterEllipsis">
+            <TextBlock.Text>
+                <Binding Path="Fields\[Assigned To\].Value" />
+            </TextBlock.Text>
+        </TextBlock>
+        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <TextBlock>
+                <TextBlock.Text>
+                    <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Baseline Work" />
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock>
+                <TextBlock.Text>
+                    <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Original Estimate" />
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock Text=" / " />
+            <TextBlock>
+                <TextBlock.Text>
+                    <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Remaining Work" />
+                </TextBlock.Text>
+            </TextBlock>
+            <TextBlock Text=" / " />
+            <TextBlock >
+                <TextBlock.Text>
+                    <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" 
+                             ConverterParameter="Completed Work" />
+                </TextBlock.Text>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</DataTemplate>
+```
 
 The above template uses a set of converters to retrieve certain values
 from the work item. In order to use the converters shipped with the AIT
 TeamSystemPro Task Board you need to include those as follows:
 
-&lt;ResourceDictionary \
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"\
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"\
-    xmlns:converter="clr-namespace:AIT.Taskboard.Application.Converter;assembly=AIT.Taskboard.Application"&gt;\
-    \
-    &lt;converter:BlockedConverter x:Key="BlockedConverter" /&gt;\
-    &lt;converter:TimeInStateConverter x:Key="TimeInStateConverter" /&gt;\
-    &lt;converter:UserNameToImageConverter x:Key="UserNameToImageConverter" /&gt;\
-    &lt;converter:WorkItemNumericFieldValueConverter x:Key="WorkItemNumericFieldValueConverter" /&gt;\
-&lt;/ResourceDictionary&gt;
+```xml
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:AIT.Taskboard.Application.Converter;assembly=AIT.Taskboard.Application">
+    
+    <converter:BlockedConverter x:Key="BlockedConverter" />
+    <converter:TimeInStateConverter x:Key="TimeInStateConverter" />
+    <converter:UserNameToImageConverter x:Key="UserNameToImageConverter" />
+    <converter:WorkItemNumericFieldValueConverter x:Key="WorkItemNumericFieldValueConverter" />
+</ResourceDictionary>
+```
 
 The AIT TeamSystemPro Task board is shipped with the following set of
 converters:
@@ -435,9 +425,12 @@ In order to control the size of the work items elements in the task
 board you can add two double resources to you resource dictionary as
 follows:
 
-&lt;s:Double x:Key="TemplateWidth"&gt;160&lt;/s:Double&gt;
-
-&lt;s:Double x:Key="TemplateHeight"&gt;120&lt;/s:Double&gt;    
+```xml
+<s:Double x:Key="TemplateWidth">160</s:Double>
+```
+```xml
+<s:Double x:Key="TemplateHeight">120</s:Double>    
+```
 
 It’s important to use the right names for those two resources –
 *TemplateHeight* and *TemplateWidth*.
@@ -448,12 +441,14 @@ BlockedConverter
 The *BlockedConverter* is used to convert the values of the Blocked
 field into a Visibility value.
 
-&lt;Image Source="SmallImages\\forbidden.png" Grid.Column="1" Margin="2" Width="16" Height="16" \
-       HorizontalAlignment="Right"&gt;\
-    &lt;Image.Visibility&gt;\
-        &lt;Binding Converter="{StaticResource BlockedConverter}" ConverterParameter="Blocked" /&gt;\
-    &lt;/Image.Visibility&gt;\
-&lt;/Image&gt;
+```xml
+<Image Source="SmallImages\\forbidden.png" Grid.Column="1" Margin="2" Width="16" Height="16" \
+       HorizontalAlignment="Right">\
+    <Image.Visibility>\
+        <Binding Converter="{StaticResource BlockedConverter}" ConverterParameter="Blocked" />\
+    </Image.Visibility>\
+</Image>
+```
 
 The *BlockedConverter* requires as ConverterParameter the name of the
 field to evaluate. The field specified should have *Yes* or *No* as
@@ -471,17 +466,19 @@ Boolean value into a Visibility value. The converter can be used when
 binding to Boolean value. The converter allows to configure which
 visibility to return for which Boolean value:
 
-&lt;converter:BooleanToVisibilityConverter x:Key="HiddenIfNotTrue" Inverted="True" Not="False" OnTrue="Visible" OnFalse="Hidden" /&gt;
+```xml
+<converter:BooleanToVisibilityConverter x:Key="HiddenIfNotTrue" Inverted="True" Not="False" OnTrue="Visible" OnFalse="Hidden" />
+```
 
 The BooleanToVisibilityConverter has the following parameters:
 
-  Parameter   Description
-  ----------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  Inverted    A Boolean value. When set to *True* the conversion is from Visibility to Boolean which means the value bound is a Visibility value and the converted value will be a Boolean. Otherwise the conversion will be from Boolean to visibility. The default value is *False*
-  Not         A Boolean value. If set to true the bound Boolean value is logical negotiated before using it to determine the visibility. The default value is *False.*
-  OnTrue      The visibility to return when the input value – after applying the *Not* configuration – is evaluated as *True*.
-  OnFalse     The visibility to return when the input value – after applying the *Not* configuration – is evaluated as *False*.
-
+  |Parameter   |Description
+  |----------- |------------
+  |Inverted    |A Boolean value. When set to *True* the conversion is from Visibility to Boolean which means the value bound is a Visibility value and the converted value will be a Boolean. Otherwise the conversion will be from Boolean to visibility. The default value is *False*
+  |Not         |A Boolean value. If set to true the bound Boolean value is logical negotiated before using it to determine the visibility. The default value is *False.*
+  |OnTrue      |The visibility to return when the input value – after applying the *Not* configuration – is evaluated as *True*.
+  |OnFalse     |The visibility to return when the input value – after applying the *Not* configuration – is evaluated as *False*.
+  
 StringNullVisibilityConverter
 -----------------------------
 
@@ -494,11 +491,11 @@ TimeInStateConverter
 
 The TimeInStateConverter is a sample that shows how a converter can be
 used to perfrom specifc calculation logic for the visualization based on
-the bound work item. It can be sued as follows:
+the bound work item. It can be used as follows:
 
-&lt;TextBlock Text="{Binding Converter={StaticResource TimeInStateConverter}, 
-
-ConverterParameter=TotalHours, StringFormat={}{0:F0} }" /&gt;
+```xml
+<TextBlock Text="{Binding Converter={StaticResource TimeInStateConverter}, ConverterParameter=TotalHours, StringFormat={}{0:F0} }" />
+```
 
 The Converter is looking for fields in the work item that track the
 Enter Time for a state. These fields are named *\[StateName\] Enter
@@ -526,12 +523,14 @@ The WorkItemNumericFieldConverter converts a numeric field value. Its
 fails safe if the field does not exist or the field has no value. If the
 field exists but has no value 0 (zero) is returned.
 
-&lt;TextBlock&gt;\
-    &lt;TextBlock.Text&gt;\
-        &lt;Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" \
-                 ConverterParameter="Original Estimate" /&gt;\
-    &lt;/TextBlock.Text&gt;\
-&lt;/TextBlock&gt;
+```xml
+<TextBlock>
+    <TextBlock.Text>
+        <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" 
+                 ConverterParameter="Original Estimate" />
+    </TextBlock.Text>
+</TextBlock>
+```
 
 The converter must be bound to the work item instance and expects as
 ConverterParamter the name of the field.
@@ -545,22 +544,24 @@ item based on the value of a work item field.
 The following shows how the *FieldValueVisibilityConverter* is
 integrated:
 
-&lt;converter:FieldValueVisibilityConverter x:Key="FieldValueVisibilityConverter" 
-
-MatchedVisibility="Visible" UnmatchedVisibility="Hidden" /&gt;
+```xml
+<converter:FieldValueVisibilityConverter x:Key="FieldValueVisibilityConverter" MatchedVisibility="Visible" UnmatchedVisibility="Hidden" />
+```
 
 The following shows how the converter is applied to set the visibility
 of an image based on the value of a work item field.
 
-Image Source="SmallImages\\forbidden.png" Grid.Column="1" Margin="2" Width="16" Height="16" HorizontalAlignment="Right"&gt;\
-    &lt;Image.Visibility&gt;\
-        &lt;MultiBinding Converter="{StaticResource FieldValueVisibilityConverter}" ConverterParameter="Microsoft.VSTS.CMMI.RequirementType"&gt;\
-            &lt;Binding /&gt;\
-            &lt;Binding Source="{StaticResource AllowedRequirementTypeFunctional}" /&gt;\
-            &lt;Binding Source="{StaticResource AllowedRequirementTypeBusiness}" /&gt;\
-        &lt;/MultiBinding&gt;\
-    &lt;/Image.Visibility&gt;\
-&lt;/Image&gt;
+```xml
+<Image Source="SmallImages\\forbidden.png" Grid.Column="1" Margin="2" Width="16" Height="16" HorizontalAlignment="Right">
+    <Image.Visibility>
+        <MultiBinding Converter="{StaticResource FieldValueVisibilityConverter}" ConverterParameter="Microsoft.VSTS.CMMI.RequirementType">
+            <Binding />
+            <Binding Source="{StaticResource AllowedRequirementTypeFunctional}" />
+            <Binding Source="{StaticResource AllowedRequirementTypeBusiness}" />
+        </MultiBinding>
+    </Image.Visibility>
+</Image>
+```
 
 The first value in the multi binding is always the work item. The
 following bindings refer to the values to check. If either of the values
@@ -574,3 +575,5 @@ field that should be check is specified via the *ConverterParameter.*
     Completed Work", "Deployment Enter Completed Work", "Proposed Leave
     Completed Work", "Development Leave Completed Work", "Test Leave
     Completed Work", "Deployment Leave Completed Work"
+
+[workitem]:http://msdn.microsoft.com/en-us/library/microsoft.teamfoundation.workitemtracking.client.workitem(VS.80).aspx
