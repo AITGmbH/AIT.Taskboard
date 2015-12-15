@@ -1,0 +1,622 @@
+﻿<UserControl x:Class="AIT.Taskboard.Application.TaskboardControl" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AIT.Taskboard.Application"              
+             xmlns:converter="clr-namespace:AIT.Taskboard.Application.Converter" 
+             xmlns:selectors="clr-namespace:AIT.Taskboard.Application.Selectors" 
+             xmlns:controls="clr-namespace:AIT.Taskboard.Application.Controls" 
+             xmlns:dragdrop="clr-namespace:AIT.Taskboard.Application.DragDrop"      
+             mc:Ignorable="d"
+             Loaded="UserControl_Loaded" BorderThickness="1" BorderBrush="{DynamicResource normalBorderBrush}" ManipulationStarting="HandleManipulationStarting" ManipulationDelta="HandleManipulationDelta" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="WorkItemResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <BooleanToVisibilityConverter x:Key="boolToVis" />
+            <converter:FilterVisibilityConverter x:Key="FilterVisibilityConverter" />
+            <converter:ColumnSummaryConverter x:Key="ColumnSummaryConverter" />
+            <converter:RowSummaryConverter x:Key="RowSummaryConverter" />
+            <converter:RowHeaderWidthConverter x:Key="RowHeaderWidthConverter" />
+            <converter:WorkItemColorConverter x:Key="WorkItemColorConverter" />
+            <converter:NumericFieldsConverter x:Key="NumericFieldsConverter" />
+            <converter:WorkItemNumericFieldValueConverter x:Key="WorkItemNumericFieldValueConverter" />
+            <converter:FilteredNumericFieldsConverter x:Key="FilteredNumericFieldConverter" />
+            <converter:BooleanToVisibilityConverter x:Key="HiddenIfNotTrue" Inverted="True" Not="False" OnTrue="Visible" OnFalse="Hidden" />
+            <ObjectDataProvider x:Key="WorkItemTemplateSelector" ObjectType="{x:Type selectors:WorkItemTemplateSelector}">
+                <ObjectDataProvider.ConstructorParameters>
+                    <local:ObjectReference Key="MainWindow" />
+                </ObjectDataProvider.ConstructorParameters>
+            </ObjectDataProvider>
+            <!--<selectors:WorkItemTemplateSelector x:Key="WorkItemTemplateSelector" />-->
+
+            <SolidColorBrush x:Key="normalBorderBrush" Color="Gray" />
+            <SolidColorBrush x:Key="normalBackgroundBrush" Color="White" />
+            <LinearGradientBrush x:Key="rowBackground" StartPoint="0,0" EndPoint="0,1">
+                <GradientStop Color="White" Offset="0" />
+                <GradientStop Color="WhiteSmoke" Offset="1" />
+            </LinearGradientBrush>
+
+            <DataTemplate x:Key="DefaultPBIWorkItemTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1" Margin="2" Text="{Binding Path=Id}" />
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="1" Text="{Binding Path=Title}" ToolTip="Title" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" />
+                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Story Points" />                                
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text=" / " />
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Stack Rank" />                                
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="DefaultSmallPBIWorkItemTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1" Margin="2" Text="{Binding Path=Id}" />
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="1" Text="{Binding Path=Title}" ToolTip="Title" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" />
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="DefaultLargePBIWorkItemTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1" Margin="2" Text="{Binding Path=Id}" />
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="1" Text="{Binding Path=Title}" ToolTip="Title" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" />
+                    <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Story Points" />                                
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text=" / " />
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Stack Rank" />                                
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="DefaultChildWorkItemTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1" Margin="2" Text="{Binding Path=Id}" />
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="1" Text="{Binding Path=Title}" ToolTip="Title" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" />
+                    <TextBlock Grid.Row="2" Grid.ColumnSpan="2" TextTrimming="CharacterEllipsis">
+                        <TextBlock.Text>
+                            <Binding Path="Fields[Assigned To].Value" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <TextBlock>
+                    <TextBlock.Text>
+                        <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Baseline Work" />
+                    </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock>
+                    <TextBlock.Text>
+                        <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Original Estimate" />
+                    </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text=" / " />
+                        <TextBlock>
+                    <TextBlock.Text>
+                        <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Remaining Work" />
+                    </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text=" / " />
+                        <TextBlock >
+                    <TextBlock.Text>
+                        <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Completed Work" />
+                    </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="DefaultSmallChildWorkItemTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1" Margin="2" Text="{Binding Path=Id}" />
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="1" Text="{Binding Path=Title}" ToolTip="Title" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" />
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="DefaultLargeChildWorkItemTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="1" Margin="2" Text="{Binding Path=Id}" />
+                    <TextBlock Grid.Row="1" Grid.ColumnSpan="2" Margin="1" Text="{Binding Path=Title}" ToolTip="Title" TextTrimming="CharacterEllipsis" TextWrapping="Wrap" />
+                    <TextBlock Grid.Row="2" Grid.ColumnSpan="2" TextTrimming="CharacterEllipsis">
+                        <TextBlock.Text>
+                            <Binding Path="Fields[Assigned To].Value" />
+                        </TextBlock.Text>
+                    </TextBlock>
+                    <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
+                        <TextBlock>
+                    <TextBlock.Text>
+                        <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Baseline Work" />
+                    </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock>
+                    <TextBlock.Text>
+                        <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Original Estimate" />
+                    </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text=" / " />
+                        <TextBlock>
+                    <TextBlock.Text>
+                        <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Remaining Work" />
+                    </TextBlock.Text>
+                        </TextBlock>
+                        <TextBlock Text=" / " />
+                        <TextBlock >
+                    <TextBlock.Text>
+                        <Binding Converter="{StaticResource WorkItemNumericFieldValueConverter}" ConverterParameter="Completed Work" />
+                    </TextBlock.Text>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <Style TargetType="{x:Type controls:WorkItemControl}">
+                <Setter Property="Focusable" Value="True" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Background" Value="{StaticResource normalBackgroundBrush}" />
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <SolidColorBrush>
+                            <SolidColorBrush.Color>
+                                <MultiBinding Converter="{StaticResource WorkItemColorConverter}">
+                                    <Binding />
+                                    <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.ConfigurationViewModel.CustomStates" />
+                                </MultiBinding>
+                            </SolidColorBrush.Color>
+                        </SolidColorBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type controls:WorkItemControl}">
+                            <Grid>
+                                <Grid.Effect>
+                                    <DropShadowEffect Color="Gray" />
+                                </Grid.Effect>
+                                <Rectangle Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="3" RadiusX="5" RadiusY="5">
+                                    <Rectangle.Style>
+                                        <Style>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=IsDirty}" Value="True">
+                                                    <Setter Property="Rectangle.StrokeDashArray" Value="2,2" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Rectangle.Style>
+                                </Rectangle>
+                                <ContentControl Content="{Binding}" ContentTemplateSelector="{Binding Source={StaticResource WorkItemTemplateSelector}}" Margin="4" />
+                                <Button x:Name="btnAddLinkedItem" Width="32" Height="32" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Transparent" 
+                                        BorderBrush="Transparent" Click="btnAddLinkedItem_Click" Panel.ZIndex="2" IsEnabled="True" Visibility="Hidden" Margin="0 2 2 0">
+                                    <Image Source="LargeImages\add_child.png"></Image>
+                                </Button>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                        <Condition Property="IsBacklogItem" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="btnAddLinkedItem" Property="Visibility" Value="Visible" />
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsFocused" Value="True"/>
+                                        <Condition Property="IsBacklogItem" Value="True" />
+                                    </MultiTrigger.Conditions>
+                                    <Setter TargetName="btnAddLinkedItem" Property="Visibility" Value="Visible" />
+                                </MultiTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                
+                <Setter Property="Width" Value="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.WorkItemWidth}"/>
+                <Setter Property="Height" Value="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.WorkItemHeight}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsFocused" Value="True" >
+                        <Setter Property="IsSelected" Value="True" />
+                    </Trigger>
+                    <Trigger Property="IsSelected" Value="True" >
+                        <Setter Property="Background">
+                            <Setter.Value>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Color="White" Offset="0" />
+                                    <GradientStop Offset="1">
+                                        <GradientStop.Color>
+                                            <MultiBinding Converter="{StaticResource WorkItemColorConverter}">
+                                                <Binding />
+                                                <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.ConfigurationViewModel.CustomStates" />
+                                            </MultiBinding>
+                                        </GradientStop.Color>
+                                    </GradientStop>
+                                </LinearGradientBrush>
+                            </Setter.Value>
+                        </Setter>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <DataTemplate x:Key="BacklogItem">
+                <controls:WorkItemControl IsBacklogItem="True" />
+            </DataTemplate>
+            <DataTemplate x:Key="WorkItem">
+                <controls:WorkItemControl IsBacklogItem="False">
+                    <controls:WorkItemControl.Visibility>
+                        <MultiBinding Converter="{StaticResource FilterVisibilityConverter}">
+                            <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.AssignedToFilterSelectedItem" />
+                            <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.SelectedAreaPath" />
+                            <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.SelectedIterationPath" />
+                            <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.WorkItemUserFilter" />
+                            <Binding />
+                        </MultiBinding>
+                    </controls:WorkItemControl.Visibility>
+                </controls:WorkItemControl>
+            </DataTemplate>
+            <DataTemplate x:Key="WorkItemCell">
+                <ItemsControl Padding="5" Background="{StaticResource rowBackground}" ItemsSource="{Binding }" ItemTemplate="{StaticResource WorkItem}" dragdrop:DragDropHelper.IsDragSource="True" dragdrop:DragDropHelper.IsDropTarget="True">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True">
+                                <WrapPanel.LayoutTransform>
+                                    <ScaleTransform ScaleX="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.ZoomFactor}" 
+                                                    ScaleY="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.ZoomFactor}" />
+                                </WrapPanel.LayoutTransform>
+                            </WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </DataTemplate>
+            <Style x:Key="DataGridRowHeaderStyle" TargetType="{x:Type DataGridRowHeader}">
+                <Setter Property="Content" Value="{Binding Path=Backlog}" />               
+                <Setter Property="ContentTemplate" Value="{StaticResource BacklogItem}" />
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="Width">
+                    <Setter.Value>
+                        <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.WorkItemWidth" Converter="{StaticResource RowHeaderWidthConverter}"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="DataGridColumnHeaderStyle" TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                <Setter Property="Background" Value="{StaticResource normalBackgroundBrush}" />
+                <Setter Property="ContentTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Border Padding="5" Margin="0,0,1,0" CornerRadius="5,5,0,0" BorderThickness="1,1,1,0" Background="{StaticResource normalBackgroundBrush}">
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="{Binding Path=Color}" />
+                                </Border.BorderBrush>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                    <TextBlock Text="{Binding Path=Name}" VerticalAlignment="Center" FontWeight="Bold" FontSize="13">
+                                        <!--<TextBlock.Foreground>
+                                            <SolidColorBrush Color="{Binding Path=Color}" />
+                                        </TextBlock.Foreground>-->
+                                    </TextBlock>
+                                    <TextBlock Name="columnSummary" Margin="2,3,0,0" FontWeight="Bold" FontSize="11">
+                                        <!--<TextBlock.Foreground>
+                                            <SolidColorBrush Color="{Binding Path=Color}" />
+                                        </TextBlock.Foreground>-->
+                                        <TextBlock.Text>
+                                            <MultiBinding Converter="{StaticResource ColumnSummaryConverter}">
+                                                <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.TaskboardService.AllChildren" />
+                                                <Binding />
+                                                <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.ConfigurationViewModel.CurrentColumnSummaryField" />
+                                                <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.ConfigurationViewModel.HideColumnSummaryFieldname" />
+                                                <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.AssignedToFilterSelectedItem" />
+                                                <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.ChildrenFilterSelectedItem" />
+                                                <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.SelectedAreaPath" />
+                                                <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.SelectedIterationPath" />
+                                                <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.WorkItemUserFilter" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="DataGridCellStyle" TargetType="{x:Type DataGridCell}">
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{Binding RelativeSource={RelativeSource AncestorType=DataGridCell, Mode=FindAncestor}, Path=Column.Header.Color}" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderThickness" Value="1,0,1,0" />
+                <Setter Property="Margin" Value="0,0,1,0" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+            <Style x:Key="DataGridRowStyle" TargetType="{x:Type DataGridRow}">
+                <Setter Property="Background" Value="{StaticResource rowBackground}" />
+                <Setter Property="BorderBrush" Value="{StaticResource normalBorderBrush}" />
+                <Setter Property="BorderThickness" Value="1" />
+                <Setter Property="Margin" Value="0,0,0,1" />
+                <Setter Property="Visibility">
+                    <Setter.Value>
+                        <MultiBinding Converter="{StaticResource FilterVisibilityConverter}">
+                            <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.AssignedToFilterSelectedItem" />
+                            <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.ChildrenFilterSelectedItem" />
+                            <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.SelectedAreaPath" />
+                            <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.SelectedIterationPath" />
+                            <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.WorkItemUserFilter" />
+                            <Binding />
+                        </MultiBinding>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridRow}">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="True"
+                                CornerRadius="5,0,0,5">
+                                <SelectiveScrollingGrid Focusable="True" MouseLeftButtonUp="HandleMouseLeftButtonUp">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Grid.RowSpan="2"/>
+                                    <DataGridRowHeader SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical">
+                                        <DataGridRowHeader.LayoutTransform>
+                                            <ScaleTransform ScaleX="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.ZoomFactor}" 
+                                                    ScaleY="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.ZoomFactor}" />
+                                        </DataGridRowHeader.LayoutTransform>
+                                    </DataGridRowHeader>
+                                    <StackPanel Grid.Row="1" SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical">
+                                        <StackPanel.LayoutTransform>
+                                            <ScaleTransform ScaleX="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.ZoomFactor}" 
+                                                    ScaleY="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.ZoomFactor}" />
+                                        </StackPanel.LayoutTransform>
+                                        <ItemsControl Name="rowSummary" HorizontalAlignment="Center" Margin="2" BorderBrush="{StaticResource normalBorderBrush}" ToolTip="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.ConfigurationViewModel.CurrentRowSummaryField.Name}">
+                                            <ItemsControl.ItemsSource>
+                                                <MultiBinding Converter="{StaticResource RowSummaryConverter}">
+                                                    <Binding Path="Children" />
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.ConfigurationViewModel.CustomStates" />
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.ConfigurationViewModel.CurrentRowSummaryField" />
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.AssignedToFilterSelectedItem" />
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.SelectedAreaPath" />
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.SelectedIterationPath" />                                                    
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.WorkItemSize.Width" />
+                                                    <Binding RelativeSource="{RelativeSource AncestorType=Window, Mode=FindAncestor}" Path="DataContext.WorkItemUserFilter" />
+                                                </MultiBinding>
+                                            </ItemsControl.ItemsSource>
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Rectangle Margin="0,1,0,1" Width="{Binding Path=Width}" Height="20" SnapsToDevicePixels="True">
+                                                        <Rectangle.Fill>
+                                                            <DrawingBrush>
+                                                                <DrawingBrush.Drawing>
+                                                                    <DrawingGroup>
+                                                                        <GeometryDrawing>
+                                                                            <GeometryDrawing.Brush>
+                                                                                <RadialGradientBrush Center="0.54326,0.45465" RadiusX="0.602049" RadiusY="1.02049" GradientOrigin="0.4326,0.45465">
+                                                                                    <GradientStop Color="{Binding Path=Brush.Color}" Offset="0"/>
+                                                                                </RadialGradientBrush>
+                                                                            </GeometryDrawing.Brush>
+                                                                            <GeometryDrawing.Geometry>
+                                                                                <RectangleGeometry Rect="0,0 1,1" />
+                                                                            </GeometryDrawing.Geometry>
+                                                                        </GeometryDrawing>
+                                                                        <GeometryDrawing>
+                                                                            <GeometryDrawing.Brush>
+                                                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" SpreadMethod="Pad">
+                                                                                    <GradientStop Color="#FFFFFFFF" Offset="0"/>
+                                                                                    <GradientStop Color="#22FFFFFF" Offset="1"/>
+                                                                                </LinearGradientBrush>
+                                                                            </GeometryDrawing.Brush>
+                                                                            <GeometryDrawing.Geometry>
+                                                                                <RectangleGeometry Rect="0,0 1,0.48" />
+                                                                            </GeometryDrawing.Geometry>
+                                                                        </GeometryDrawing>
+                                                                    </DrawingGroup>
+                                                                </DrawingBrush.Drawing>
+                                                            </DrawingBrush>
+                                                        </Rectangle.Fill>
+                                                        <Rectangle.OpacityMask>
+                                                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,0" MappingMode="RelativeToBoundingBox" SpreadMethod="Repeat">
+                                                                <LinearGradientBrush.GradientStops>
+                                                                    <GradientStop Color="#FF000000" Offset="{Binding Path=OpacityWidth}" />
+                                                                    <GradientStop Color="#66000000" Offset="{Binding Path=OpacityWidth}" />
+                                                                </LinearGradientBrush.GradientStops>
+                                                            </LinearGradientBrush>
+                                                        </Rectangle.OpacityMask>
+                                                    </Rectangle>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                            <ItemsControl.ItemsPanel>
+                                                <ItemsPanelTemplate>
+                                                    <StackPanel IsItemsHost="True" Orientation="Horizontal" />
+                                                </ItemsPanelTemplate>
+                                            </ItemsControl.ItemsPanel>
+                                        </ItemsControl>
+                                        <Border Height="{Binding ElementName=rowSummary, Path=ActualHeight}" Width="{Binding ElementName=rowSummary, Path=ActualWidth}">
+                                            <Border.Background>
+                                                <VisualBrush Visual="{Binding ElementName=rowSummary}">
+                                                    <VisualBrush.RelativeTransform>
+                                                        <TransformGroup>
+                                                            <ScaleTransform ScaleX="1" ScaleY="-1" />
+                                                            <TranslateTransform Y="1" />
+                                                        </TransformGroup>
+                                                    </VisualBrush.RelativeTransform>
+                                                </VisualBrush>
+                                            </Border.Background>
+                                            <Border.OpacityMask>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                                    <LinearGradientBrush.GradientStops>
+                                                        <GradientStop Color="#AA000000" Offset="0" />
+                                                        <GradientStop Color="#00000000" Offset="0.7" />
+                                                    </LinearGradientBrush.GradientStops>
+                                                </LinearGradientBrush>
+                                            </Border.OpacityMask>
+                                        </Border>
+                                    </StackPanel>
+                                </SelectiveScrollingGrid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <DataTemplate x:Key="SummaryFieldTemplate">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="FieldName" />
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="FieldValue" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock  Grid.Column="0" Margin="2,0,2,0" Text="{Binding Path=Name}" VerticalAlignment="Center" />
+                    <controls:NumericUpDown Grid.Column="1" Margin="2,0,2,0" Value="{Binding Path=Value, Mode=TwoWay}" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding Command="local:TaskboardCommands.PrintCurrentItem" Key="P" Modifiers="Control" />
+        <KeyBinding Command="local:TaskboardCommands.PrintBacklogItemAndChildren" Key="P" Modifiers="Control+Shift" />
+    </UserControl.InputBindings>
+    <!-- Note: When we add 'IsManipulationEnabled="True"' to the dock panel we are able to zoom using multi touch. The bad side effect we get: no selection or drag and drop is possible anymore!!! -->
+    <DockPanel Background="{StaticResource normalBackgroundBrush}" >
+        <Border DockPanel.Dock="Bottom" Margin="5,5,5,0" BorderThickness="3,3,3,0" CornerRadius="5,5,0,0">
+            <Border.BorderBrush>
+                <SolidColorBrush Color="{Binding Path=SelectedWorkItemColor, FallbackValue=Gray}" />
+            </Border.BorderBrush>
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="White" Offset="0" />
+                    <GradientStop Color="{Binding Path=SelectedWorkItemColor, FallbackValue=Gray}" Offset="1" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <DockPanel Visibility="{Binding Path=ShowEditbar, Converter={StaticResource boolToVis}}">
+                <TextBlock Text="{Binding Path=SelectedWorkItem.Title}" DockPanel.Dock="Top" Margin="5,5,5,0" TextAlignment="Left" HorizontalAlignment="Stretch" FontWeight="Bold" />
+                <Grid DockPanel.Dock="Left" Margin="5" Visibility="{Binding Path=WorkItemSelected, Converter={StaticResource boolToVis}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="2" Text="Iteration: " VerticalAlignment="Center" />
+                    <TextBlock Margin="2" Grid.Column="1" VerticalAlignment="Center" >
+                    <TextBlock.Text>
+                        <Binding Path="SelectedWorkItem.Fields[IterationPath].Value" />
+                    </TextBlock.Text>
+                    </TextBlock>
+                    <TextBlock Margin="2" Grid.Row="1" Text="Area: " VerticalAlignment="Center" />
+                    <TextBlock Margin="2" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" >
+                    <TextBlock.Text>
+                        <Binding Path="SelectedWorkItem.Fields[AreaPath].Value" />
+                    </TextBlock.Text>
+                    </TextBlock>
+                </Grid>
+                <TextBlock DockPanel.Dock="Right" Margin="5" VerticalAlignment="Center" Visibility="{Binding Path=WorkItemSelected, Converter={StaticResource boolToVis}}">
+                    <Hyperlink Click="More_Click">More</Hyperlink>
+                </TextBlock>
+                <ItemsControl Grid.IsSharedSizeScope="True" ItemTemplate="{StaticResource SummaryFieldTemplate}">
+                    <ItemsControl.ItemsSource>
+                        <MultiBinding Converter="{StaticResource FilteredNumericFieldConverter}">
+                            <Binding Path="SelectedWorkItem.Fields" />
+                            <Binding Path="ConfigurationViewModel.PossibleSummaryFields"></Binding>
+                        </MultiBinding>
+                    </ItemsControl.ItemsSource>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel IsItemsHost="True" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </DockPanel>
+        </Border>
+        <Grid Visibility="{Binding Path=IsConnected, Converter={StaticResource HiddenIfNotTrue}}">
+            <!-- Regarding the purpose of HotfixedDataGrid please read the class documentation -->
+            <local:HotfixedDataGrid EnableRowVirtualization="True" FocusManager.IsFocusScope="True" x:Name="dataGrid" Margin="5" GridLinesVisibility="None"
+                              
+                              ScrollViewer.CanContentScroll="False"
+                              ScrollViewer.PanningMode="None" 
+                              ScrollViewer.PanningRatio="1"
+                              ScrollViewer.IsDeferredScrollingEnabled="False"
+
+                              Background="{StaticResource normalBackgroundBrush}" BorderThickness="0" 
+                              AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" 
+                              CanUserReorderColumns="False" CanUserResizeColumns="True" CanUserResizeRows="False" 
+                              CanUserSortColumns="False" ClipboardCopyMode="None" ItemsSource="{Binding Path=TaskboardService.BacklogChildren}" 
+                              SelectionUnit="FullRow" SelectionMode="Single" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" 
+                              VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" ColumnHeaderStyle="{StaticResource DataGridColumnHeaderStyle}" 
+                              RowHeaderStyle="{StaticResource DataGridRowHeaderStyle}" CellStyle="{StaticResource DataGridCellStyle}" 
+                              RowStyle="{StaticResource DataGridRowStyle}" MouseLeftButtonUp="HandleMouseLeftButtonUp" >
+            </local:HotfixedDataGrid>
+            <Rectangle Fill="White" Width="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}, Path=DataContext.WorkItemWidth, Converter={StaticResource RowHeaderWidthConverter}}" Height="31" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,0,-1,0">
+                <Rectangle.LayoutTransform>
+                    <ScaleTransform ScaleX="{Binding Path=ZoomFactor}" />
+                </Rectangle.LayoutTransform>
+            </Rectangle>
+        </Grid>
+    </DockPanel>
+</UserControl>

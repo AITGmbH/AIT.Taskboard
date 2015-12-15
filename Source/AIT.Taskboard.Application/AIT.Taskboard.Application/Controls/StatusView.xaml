@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="AIT.Taskboard.Application.Controls.StatusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AIT.Taskboard.Application.Converter" mc:Ignorable="d" 
+             d:DesignHeight="37" d:DesignWidth="300">
+	<UserControl.Resources>
+        <Style x:Key="statusSeparatorStyle" TargetType="{x:Type Separator}">
+            <Setter Property="Opacity" Value="0.4"/>
+            <Setter Property="Margin" Value="2,4,2,4"/>
+        </Style>
+        <local:BooleanToVisibilityConverter x:Uid="RheoConverters:BooleanToVisibilityConverter_1" x:Key="VisibleIfTrue" Inverted="True" Not="False" OnTrue="Visible" OnFalse="Collapsed" />
+        <local:BooleanToVisibilityConverter x:Uid="RheoConverters:BooleanToVisibilityConverter_2" x:Key="VisibleIfNotTrue" Inverted="True" Not="True" OnTrue="Visible" OnFalse="Collapsed" />
+        <local:BooleanToVisibilityConverter x:Uid="RheoConverters:BooleanToVisibilityConverter_3" x:Key="HiddenIfNotTrue" Inverted="True" Not="False" OnTrue="Visible" OnFalse="Hidden" />
+
+
+    </UserControl.Resources>
+	<StatusBar HorizontalContentAlignment="Right">
+        <StatusBar.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <!--
+                            We need the following columns:
+                            0. Icon
+                            1. Progress bar
+                            2. Separator
+                            3. Status Message
+                            4. Separator
+                            5. Team Project Collection
+                            6. Separator
+                            7. Team Project
+                            8. Separator
+                            9. Work Item Query     
+                            10. Separator
+                            11. Row summary
+                            12. Separator
+                            13. Column summary
+                            14. Separator
+                            15. Style file name
+                        -->
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                </Grid>
+            </ItemsPanelTemplate>
+        </StatusBar.ItemsPanel>
+
+        <!-- Icon -->
+
+        <!-- Progress bar-->
+        <StatusBarItem Grid.Column="1">
+            <ProgressBar IsIndeterminate="{Binding Path=StatusViewModel.IsProgressIndeterminate}" Name="progressBar" 
+                             IsEnabled="True" Width="64" Height="12"
+                             Minimum="0" Maximum="100" Value="{Binding Path=StatusViewModel.ProgressPercentComplete, Mode=OneWay}"
+                             Visibility="{Binding Path=StatusViewModel.IsProgressing, Converter={StaticResource HiddenIfNotTrue}}"/>
+        </StatusBarItem>
+        <Separator Grid.Column="2" Style="{StaticResource statusSeparatorStyle}" Visibility="{Binding Path=StatusViewModel.IsProgressing, Converter={StaticResource HiddenIfNotTrue}}"/>
+        <!-- Current Status Message -->
+        <StatusBarItem Grid.Column="3" HorizontalContentAlignment="Left">
+            <TextBlock Text="{Binding Path=StatusViewModel.CurrentStatusText, Mode=OneWay}" TextWrapping="Wrap" />
+        </StatusBarItem>
+        <!-- Team Project Collection -->
+        <Separator Grid.Column="4" Style="{StaticResource statusSeparatorStyle}" Visibility="{Binding Path=StatusViewModel.HasTeamProjectCollection, Converter={StaticResource HiddenIfNotTrue}}"/>
+        <StatusBarItem Grid.Column="5">
+            <TextBlock Text="{Binding Path=StatusViewModel.TeamProjectCollection, Mode=OneWay}" Visibility="{Binding Path=StatusViewModel.HasTeamProjectCollection, Converter={StaticResource HiddenIfNotTrue}}" />
+        </StatusBarItem>
+        <!-- Team Project-->
+        <Separator Grid.Column="6" Style="{StaticResource statusSeparatorStyle}" Visibility="{Binding Path=StatusViewModel.HasTeamProject, Converter={StaticResource HiddenIfNotTrue}}"/>
+        <StatusBarItem Grid.Column="7">
+            <TextBlock Text="{Binding Path=StatusViewModel.TeamProject, Mode=OneWay}" Visibility="{Binding Path=StatusViewModel.HasTeamProject, Converter={StaticResource HiddenIfNotTrue}}" />
+        </StatusBarItem>
+        <!-- Work Item Query -->
+        <Separator Grid.Column="8" Style="{StaticResource statusSeparatorStyle}" Visibility="{Binding Path=StatusViewModel.HasWorkItemQuery, Converter={StaticResource HiddenIfNotTrue}}"/>
+        <StatusBarItem Grid.Column="9">
+            <TextBlock Text="{Binding Path=StatusViewModel.WorkItemQuery, Mode=OneWay}" Visibility="{Binding Path=StatusViewModel.HasWorkItemQuery, Converter={StaticResource HiddenIfNotTrue}}" />
+        </StatusBarItem>
+        <!-- Row summary -->
+        <Separator Grid.Column="10" Style="{StaticResource statusSeparatorStyle}" Visibility="{Binding Path=StatusViewModel.HasRowSummary, Converter={StaticResource HiddenIfNotTrue}}"/>
+        <StatusBarItem Grid.Column="11">
+            <TextBlock Text="{Binding Path=StatusViewModel.RowSummary, Mode=OneWay}" Visibility="{Binding Path=StatusViewModel.HasRowSummary, Converter={StaticResource HiddenIfNotTrue}}" />
+        </StatusBarItem>
+        <!-- Column summary -->
+        <Separator Grid.Column="12" Style="{StaticResource statusSeparatorStyle}" Visibility="{Binding Path=StatusViewModel.ShowColumnSummary, Converter={StaticResource HiddenIfNotTrue}}"/>
+        <StatusBarItem Grid.Column="13">
+            <TextBlock Text="{Binding Path=StatusViewModel.ColumnSummary, Mode=OneWay}" Visibility="{Binding Path=StatusViewModel.ShowColumnSummary, Converter={StaticResource HiddenIfNotTrue}}" />
+        </StatusBarItem>
+        <!-- Style summary -->
+        <Separator Grid.Column="14" Style="{StaticResource statusSeparatorStyle}" Visibility="{Binding Path=StatusViewModel.HasStyleFile, Converter={StaticResource HiddenIfNotTrue}}"/>
+        <StatusBarItem Grid.Column="15">
+            <TextBlock Text="{Binding Path=StatusViewModel.StyleFileName, Mode=OneWay}" Visibility="{Binding Path=StatusViewModel.HasStyleFile, Converter={StaticResource HiddenIfNotTrue}}" />
+        </StatusBarItem>
+    </StatusBar>
+</UserControl>

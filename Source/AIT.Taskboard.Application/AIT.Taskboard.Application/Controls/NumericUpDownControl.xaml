@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="AIT.Taskboard.Application.Controls.NumericUpDownControl"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008">
+    <Border BorderBrush="#60000000" BorderThickness="0.5">
+        <Grid Margin="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Name="TextBoxValue"
+					 PreviewTextInput="value_PreviewTextInput" TextChanged="value_TextChanged" PreviewKeyDown="value_PreviewKeyDown"					 
+                     TextAlignment="Right"
+					 Grid.Column="0"/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <RepeatButton Grid.Row="0" x:Name="Increase" Click="Increase_Click">
+                    <Image Source="/AIT.Taskboard.Application;component/Images/up.png" Height="3" Width="5"/>
+                </RepeatButton>
+                <RepeatButton Grid.Row="1" x:Name="Decrease" Click="Decrease_Click">
+                    <Image Source="/AIT.Taskboard.Application;component/Images/down.png" Height="3" Width="5"/>
+                </RepeatButton>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,380 @@
+﻿<r:RibbonWindow 
+    x:Class="AIT.Taskboard.Application.MainWindow" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:r="clr-namespace:Microsoft.Windows.Controls.Ribbon;assembly=RibbonControlsLibrary" 
+    xmlns:local="clr-namespace:AIT.Taskboard.Application" 
+    xmlns:converter="clr-namespace:AIT.Taskboard.Application.Converter" 
+    xmlns:controls="clr-namespace:AIT.Taskboard.Application.Controls"
+    xmlns:Adorner="clr-namespace:AIT.Taskboard.Application.Controls.AdornerHelper"
+    KeyDown="Window_KeyDown"
+    MinHeight="600" MinWidth="800" 
+    Icon="/AIT.Taskboard.Application;component/TaskboardLogoT.ico"
+    Loaded="HandleMainWindowLoaded" 
+    local:ObjectReference.Declaration="{local:ObjectReference MainWindow}"
+    >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="WorkItemResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converter:RibbonComboBoxConverter x:Key="RibbonComboBoxConverter" />
+            <converter:FileNameConverter x:Key="FileNameConverter" />
+            <converter:TitleConverter x:Key="TitleConverter" />
+            <converter:BooleanToVisibilityConverter x:Key="VisibleIfTrue" OnTrue="Visible" OnFalse="Collapsed" Inverted="True" />
+            <converter:WorkItemSizeConverter x:Key="WorkItemSizeConverter" />
+            <DataTemplate x:Key="MostRecentItemTemplate" >
+                <Border x:Name="MainBorder" 
+                    BorderThickness="1"
+                    Padding="5,2,5,2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Converter={StaticResource FileNameConverter}}" ToolTip="{Binding}"
+                                   MouseLeftButtonUp="HandleMostRecentFileSelected"/>
+                    </Grid>
+                </Border>
+                <DataTemplate.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="MainBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent},Path=(r:RibbonControlService.Ribbon).MouseOverBackground}" />
+                        <Setter TargetName="MainBorder" Property="BorderBrush" Value="{Binding RelativeSource={RelativeSource TemplatedParent},Path=(r:RibbonControlService.Ribbon).MouseOverBorderBrush}" />
+                    </Trigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+
+            <!-- RibbonApplicationMenu-->
+            <Style TargetType="{x:Type r:RibbonApplicationMenu}">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding SmallImageSource}" Value="{x:Null}">
+                        <Setter Property="SmallImageSource" Value="{x:Null}" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- RibbonMenuItem-->
+            <Style TargetType="{x:Type r:RibbonMenuItem}">
+                <Setter Property="Header" Value="{Binding LabelTitle}" />
+                <Setter Property="ImageSource" Value="{Binding LargeImageSource}" />
+                <Setter Property="ToolTipTitle" Value="{Binding ToolTipTitle}" />
+                <Setter Property="ToolTipDescription" Value="{Binding ToolTipDescription}" />
+                <Setter Property="ToolTipImageSource" Value="{Binding ToolTipImageSource}" />
+                <Setter Property="Command" Value="{Binding}" />
+                <Setter Property="UsesItemContainerTemplate" Value="True" />
+            </Style>
+
+            <!-- RibbonApplicationMenuItem -->
+            <Style TargetType="{x:Type r:RibbonApplicationMenuItem}" BasedOn="{StaticResource {x:Type r:RibbonMenuItem}}">
+            </Style>
+
+            <!-- RibbonButton -->
+            <Style TargetType="{x:Type r:RibbonButton}">
+                <Setter Property="Label" Value="{Binding LabelTitle}" />
+                <Setter Property="SmallImageSource" Value="{Binding SmallImageSource}" />
+                <Setter Property="LargeImageSource" Value="{Binding LargeImageSource}" />
+                <Setter Property="ToolTipTitle" Value="{Binding ToolTipTitle}" />
+                <Setter Property="ToolTipDescription" Value="{Binding ToolTipDescription}" />
+                <Setter Property="ToolTipImageSource" Value="{Binding ToolTipImageSource}" />
+                <Setter Property="ToolTipFooterTitle" Value="{Binding ToolTipFooterTitle}" />
+                <Setter Property="ToolTipFooterDescription" Value="{Binding ToolTipFooterDescription}" />
+                <Setter Property="ToolTipFooterImageSource" Value="{Binding ToolTipFooterImageSource}" />
+                <Setter Property="Command" Value="{Binding}" />
+            </Style>
+
+            <!-- RibbonToggleButton -->
+            <Style TargetType="{x:Type r:RibbonToggleButton}">
+                <Setter Property="Label" Value="{Binding LabelTitle}" />
+                <Setter Property="SmallImageSource" Value="{Binding SmallImageSource}" />
+                <Setter Property="LargeImageSource" Value="{Binding LargeImageSource}" />
+                <Setter Property="ToolTipTitle" Value="{Binding ToolTipTitle}" />
+                <Setter Property="ToolTipDescription" Value="{Binding ToolTipDescription}" />
+                <Setter Property="ToolTipImageSource" Value="{Binding ToolTipImageSource}" />
+                <Setter Property="ToolTipFooterTitle" Value="{Binding ToolTipFooterTitle}" />
+                <Setter Property="ToolTipFooterDescription" Value="{Binding ToolTipFooterDescription}" />
+                <Setter Property="ToolTipFooterImageSource" Value="{Binding ToolTipFooterImageSource}" />
+                <Setter Property="Command" Value="{Binding}" />
+                <Setter Property="IsChecked" Value="{Binding IsChecked}" />
+            </Style>
+
+            <!-- RibbonSplitButton -->
+            <Style TargetType="{x:Type r:RibbonSplitButton}">
+                <Setter Property="Label" Value="{Binding LabelTitle}" />
+                <Setter Property="SmallImageSource" Value="{Binding SmallImageSource}" />
+                <Setter Property="LargeImageSource" Value="{Binding LargeImageSource}" />
+                <Setter Property="ToolTipTitle" Value="{Binding ToolTipTitle}" />
+                <Setter Property="ToolTipDescription" Value="{Binding ToolTipDescription}" />
+                <Setter Property="ToolTipImageSource" Value="{Binding ToolTipImageSource}" />
+                <Setter Property="ToolTipFooterTitle" Value="{Binding ToolTipFooterTitle}" />
+                <Setter Property="ToolTipFooterDescription" Value="{Binding ToolTipFooterDescription}" />
+                <Setter Property="ToolTipFooterImageSource" Value="{Binding ToolTipFooterImageSource}" />
+                <Setter Property="Command" Value="{Binding}" />
+            </Style>
+
+            <Style TargetType="{x:Type r:RibbonTextBox}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type r:RibbonTextBox}">
+                            <StackPanel Orientation="Horizontal">
+                                <Border x:Name="Bd"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            Background="{TemplateBinding Background}"
+                                            Height="{TemplateBinding Height}"
+                                            Width="{TemplateBinding Width}"
+                                            SnapsToDevicePixels="True">
+                                    <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </Border>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="local:TaskboardCommands.ConnectToTfs" Executed="ExecuteQuickConnect" CanExecute="CanExecuteQuickConnect" />
+        <CommandBinding Command="local:TaskboardCommands.OpenConfiguration" Executed="ExecuteOpenConfiguration" />
+        <CommandBinding Command="local:TaskboardCommands.NewConfiguration" Executed="ExecuteNewConfiguration" CanExecute="CanExecuteNewConfiguration" />
+        <CommandBinding Command="local:TaskboardCommands.SaveConfiguration" Executed="ExecuteSaveConfiguration" CanExecute="CanExecuteSaveConfiguration" />
+        <CommandBinding Command="local:TaskboardCommands.Publish" Executed="ExecutePublish" CanExecute="CanExecutePublish" />
+        <CommandBinding Command="local:TaskboardCommands.Refresh" Executed="ExecuteRefresh" CanExecute="CanExecuteRefresh"/>
+        <CommandBinding Command="local:TaskboardCommands.AutoRefresh" Executed="ExecuteAutoRefresh" CanExecute="CanExecuteAutoRefresh" />
+        <CommandBinding Command="local:TaskboardCommands.Settings" Executed="ExecuteSettings" CanExecute="CanExecuteSettings"/>
+        <CommandBinding Command="local:TaskboardCommands.Help" Executed="ExecuteHelp" />
+        <CommandBinding Command="local:TaskboardCommands.About" Executed="ExecuteAbout" />
+        <CommandBinding Command="local:TaskboardCommands.ExitApplication" Executed="ExecuteExitApplication" />
+        <CommandBinding Command="local:TaskboardCommands.ResetWorkItemResource" Executed="ExecuteResetWorkItemResource" />
+        <CommandBinding Command="local:TaskboardCommands.SelectWorkItemResource" Executed="ExecuteSelectWorkItemResource" />
+        <CommandBinding Command="local:TaskboardCommands.SendFeedback" Executed="ExecuteSendFeedback" />
+        <CommandBinding Command="local:TaskboardCommands.SendFeedbackEmail" Executed="ExecuteSendFeedbackEmail" />
+        <CommandBinding Command="local:TaskboardCommands.Print" />
+        <CommandBinding Command="local:TaskboardCommands.PrintAllItems" Executed="ExecutePrintAllItems" CanExecute="CanExecutePrintAllItems"/>
+        <CommandBinding Command="local:TaskboardCommands.PrintBacklogItemAndChildren" Executed="ExecutePrintBacklogItemAndChildren" CanExecute="CanExecutePrintBacklogItemAndChildren"/>
+        <CommandBinding Command="local:TaskboardCommands.PrintCurrentItem" Executed="ExecutePrintCurrentItem" CanExecute="CanExecutePrintCurrentItem"/>
+        <CommandBinding Command="local:TaskboardCommands.FullScreen" Executed="ExecuteFullScreen" CanExecute="CanExecuteFullScreen" />
+        <CommandBinding Command="local:TaskboardCommands.ZoomIn" Executed="ExecuteZoomIn" CanExecute="CanExecuteZoomIn" />
+        <CommandBinding Command="local:TaskboardCommands.ZoomOut" Executed="ExecuteZoomOut" CanExecute="CanExecuteZoomOut" />
+        <CommandBinding Command="local:TaskboardCommands.ShowHideEditBar" Executed="ExecuteShowHideEditbar"/>
+        <CommandBinding Command="local:TaskboardCommands.ShowHideReportViewer" Executed="ExecuteShowHideReportViewerbar" CanExecute="CanExecuteShowHideReportViewerbar"/>
+        <CommandBinding Command="local:TaskboardCommands.AddNewLinkedWorkItem" Executed="ExecuteAddNewLinkedWorkItem" CanExecute="CanExecuteAddNewLinkedWorkItem"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="Enter" Modifiers="Alt" Command="local:TaskboardCommands.FullScreen" />
+        <KeyBinding Key="S" Modifiers="Control" Command="local:TaskboardCommands.Publish" />
+        <KeyBinding Key="OemPlus" Modifiers="Control" Command="local:TaskboardCommands.ZoomIn" />
+        <KeyBinding Key="OemMinus" Modifiers="Control" Command="local:TaskboardCommands.ZoomOut" />
+        <KeyBinding Key="Add" Modifiers="Control" Command="local:TaskboardCommands.ZoomIn" />
+        <KeyBinding Key="Subtract" Modifiers="Control" Command="local:TaskboardCommands.ZoomOut" />
+        <KeyBinding Key="F1" Command="local:TaskboardCommands.Help" />
+        <KeyBinding Key="F2" Command="local:TaskboardCommands.ShowHideEditBar" />
+        <KeyBinding Key="F4" Modifiers="Alt" Command="local:TaskboardCommands.ExitApplication" />
+        <KeyBinding Key="O" Modifiers="Control" Command="local:TaskboardCommands.OpenConfiguration" />
+        <KeyBinding Key="N" Modifiers="Control" Command="local:TaskboardCommands.NewConfiguration" />
+        <KeyBinding Key="A" Modifiers="Control+Shift" Command="local:TaskboardCommands.AddNewLinkedWorkItem"/>
+    </Window.InputBindings>
+    <Window.Title>
+        <MultiBinding Converter="{StaticResource TitleConverter}" ConverterParameter="AIT TeamSystemPro Task Board">
+            <!-- Value 1: Title if no config is open -->
+            <Binding Source="AIT TeamSystemPro Task Board {0}" />
+            <!-- Value 2: Title if config is open -->
+            <Binding Source="AIT TeamSystemPro Task Board {0} - {1}" />
+            <!-- Value 3: Check if license is trial or not -->
+            <Binding Path="IsTrialVersion" />
+            <!-- Value 4: The configuration data -->
+            <Binding Path="ConfigurationFileName" />
+            <!-- Value 5: Gets whether is using memory file -->
+            <Binding  Path="ConfigurationService.UseMemoryFile" />
+        </MultiBinding>
+    </Window.Title>
+    <DockPanel LastChildFill="True">
+        <r:Ribbon x:Name="ribbon" DockPanel.Dock="Top"  Title="{Binding RelativeSource={RelativeSource FindAncestor,AncestorType={x:Type Window}},Path=Title}">
+            <!-- Application Menu-->
+            <r:Ribbon.ApplicationMenu>
+                <r:RibbonApplicationMenu x:Name="AppMenu"
+                    SmallImageSource="{Binding Source={x:Static local:TaskboardCommands.ApplicationMenu}, Path=SmallImageSource}">
+                    <r:RibbonApplicationMenuItem DataContext="{x:Static local:TaskboardCommands.OpenConfiguration}"/>
+                    <r:RibbonApplicationMenuItem DataContext="{x:Static local:TaskboardCommands.NewConfiguration}"/>
+                    <r:RibbonApplicationMenuItem DataContext="{x:Static local:TaskboardCommands.SaveConfiguration}"/>
+
+                    <r:RibbonApplicationMenu.FooterPaneContent>
+                        <DockPanel LastChildFill="False" >
+                            <r:RibbonButton DockPanel.Dock="Right" Margin="2" 
+                                            DataContext="{x:Static local:TaskboardCommands.ExitApplication}"
+                                            LargeImageSource="{x:Null}"/>
+                        </DockPanel>
+                    </r:RibbonApplicationMenu.FooterPaneContent>
+                    <r:RibbonApplicationMenu.AuxiliaryPaneContent>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <r:RibbonSeparator Grid.Row="0" Label="Recent Configuration Files"/>
+                            <ItemsControl Grid.Row="2"                              
+                                          ItemsSource="{Binding MostRecentFiles}"
+                                          ItemTemplate="{StaticResource MostRecentItemTemplate}" 
+                                          IsEnabled="{Binding IsConnected}"
+                                          />
+                        </Grid>
+                    </r:RibbonApplicationMenu.AuxiliaryPaneContent>
+                </r:RibbonApplicationMenu>
+            </r:Ribbon.ApplicationMenu>
+            <!-- Quick Access toolbar-->
+            <r:Ribbon.QuickAccessToolBar>
+                <r:RibbonQuickAccessToolBar Visibility="Hidden"></r:RibbonQuickAccessToolBar>
+            </r:Ribbon.QuickAccessToolBar>
+            <!-- Home Ribbon Tab-->
+            <r:RibbonTab Header="Home" GroupSizeReductionOrder="Help,Configuration,WorkItemHandling,Printing,Filtering,TfsConnection">
+                <!-- TFS Connection -->
+                <r:RibbonGroup Name="TfsConnection" Header="Quick connect">
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.ConnectToTfs}" />
+                </r:RibbonGroup>
+                <!-- Configuration/Settings-->
+                <r:RibbonGroup Name="Configuration" Header="Configuration">
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.OpenConfiguration}" />
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.NewConfiguration}" />
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.Settings}" />
+                </r:RibbonGroup>
+                <!-- Work Item Handling -->
+                <r:RibbonGroup Name="WorkItemHandling" Header="Work Items">
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.AddNewLinkedWorkItem}" />
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.Publish}" />
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.Refresh}" />
+                    <r:RibbonToggleButton Name="AutoRefreshToggleBox" DataContext="{x:Static local:TaskboardCommands.AutoRefresh}" />
+                    <r:RibbonSplitButton DataContext="{x:Static local:TaskboardCommands.SelectWorkItemResource}">
+                        <r:RibbonSplitButton.Items>
+                            <r:RibbonMenuItem DataContext="{x:Static local:TaskboardCommands.ResetWorkItemResource}"/>
+                        </r:RibbonSplitButton.Items>
+                    </r:RibbonSplitButton>
+                </r:RibbonGroup>
+                <!-- Print -->
+                <r:RibbonGroup Name="Printing" Header="Print">
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.PrintCurrentItem}" LargeImageSource="{x:Null}"/>
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.PrintBacklogItemAndChildren}" LargeImageSource="{x:Null}"/>
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.PrintAllItems}" LargeImageSource="{x:Null}"/>
+                </r:RibbonGroup>
+              
+                <!-- Help and About -->
+                <r:RibbonGroup Name="Help" Header="Help">
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.Help}" />
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.About}" />
+                    <r:RibbonSplitButton DataContext="{x:Static local:TaskboardCommands.SendFeedback}">
+                        <r:RibbonSplitButton.Items>
+                            <r:RibbonMenuItem DataContext="{x:Static local:TaskboardCommands.SendFeedbackEmail}"/>
+                        </r:RibbonSplitButton.Items>
+                    </r:RibbonSplitButton>
+                </r:RibbonGroup>
+            </r:RibbonTab>
+            <!-- View Ribbon Tab-->
+            <r:RibbonTab Header="Filter">
+                <!-- Filter -->
+                <r:RibbonGroup Name="Filtering" Header="Filter">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="Assigned To:" Margin="0 2 0 0"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="Items:" Margin="0 6 0 0"/>
+                        <r:RibbonComboBox Grid.Row="0" Grid.Column="1" IsEditable="True" IsReadOnly="True" SelectionBoxWidth="150" VerticalAlignment="Center" Margin="0,5">
+                            <r:RibbonGallery x:Name="Filter" SelectionChanged="Filter_SelectionChanged"
+                                           SelectedValuePath="Content"
+                                           MaxColumnCount="1"
+                                            >
+                                <r:RibbonGalleryCategory ItemsSource="{Binding Path=AssignedToFilterList, Converter={StaticResource RibbonComboBoxConverter}}"/>
+                            </r:RibbonGallery>
+                        </r:RibbonComboBox >
+                        <r:RibbonComboBox Grid.Row="1" Grid.Column="1" IsEditable="True" IsReadOnly="True"  VerticalAlignment="Center" SelectionBoxWidth="150" Margin="0,5">
+                            <r:RibbonGallery x:Name="FilterByChildren"
+                                           SelectedValuePath="Content"                                           
+                                           MaxColumnCount="1"
+                                           SelectionChanged="Filter_SelectionChanged"
+                                          >
+                                <r:RibbonGalleryCategory>
+                                    <r:RibbonGalleryItem Content="All items" Name="AllItems" />
+                                    <r:RibbonGalleryItem Content="Items with children" Name="ItemsWithChildren"/>
+                                    <r:RibbonGalleryItem Content="Items without children"  Name="ItemsWithoutChildren" />
+                                </r:RibbonGalleryCategory>
+                            </r:RibbonGallery>
+                        </r:RibbonComboBox>
+                        <Label Grid.Row="0" Grid.Column="2" Content="Area Path:" />
+                        <r:RibbonComboBox Grid.Row="0" Grid.Column="3" IsEditable="True" IsReadOnly="True" VerticalAlignment="Center" Text="{Binding SelectedAreaPath, Mode=OneWay}" SelectionBoxWidth="150">
+                            <r:RibbonGallery x:Name="AreaGalerry" SelectionChanged="AreaFilter_SelectionChanged"
+                                           SelectedValuePath="Content">
+                                <r:RibbonGalleryCategory ItemsSource="{Binding Path=AreaPaths}"/>
+                            </r:RibbonGallery>
+                        </r:RibbonComboBox >
+                        <Label Grid.Row="1" Grid.Column="2" Content="Iteration Path:" />
+                        <r:RibbonComboBox Grid.Row="1" Grid.Column="3" IsEditable="True" IsReadOnly="False" VerticalAlignment="Center" Text="{Binding SelectedIterationPath, Mode=OneWay}" 
+                                          x:Name="IterationPathCb" SelectionBoxWidth="150">
+                            <r:RibbonGallery x:Name="IterationGalerry" SelectionChanged="IterationFilter_SelectionChanged"
+                                           SelectedValuePath="Content">
+                                <r:RibbonGalleryCategory ItemsSource="{Binding Path=IterationPaths}"/>
+                            </r:RibbonGallery>
+                        </r:RibbonComboBox >
+                        <Label Grid.Row="0" Grid.Column="4" Content="Id/Title: " />
+                        <r:RibbonTextBox Grid.Row="0" Grid.Column="5" x:Name="Id_TitleFilter" Width="150" Height="22" Text="{Binding WorkItemUserFilter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                </r:RibbonGroup>
+            </r:RibbonTab>
+            <!-- View Ribbon Tab-->
+            <r:RibbonTab Header="View">
+                <!-- View and Zoom -->
+                <r:RibbonGroup Name="Zoom" Header="Zoom">
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.FullScreen}" />
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.ZoomIn}" />
+                    <r:RibbonButton DataContext="{x:Static local:TaskboardCommands.ZoomOut}" />
+                </r:RibbonGroup>
+                <r:RibbonGroup Name="EditBar" Header="Edit">
+                    <r:RibbonToggleButton Name="ShowHideEditbarToggleBox" DataContext="{x:Static local:TaskboardCommands.ShowHideEditBar}" IsChecked="True"/>
+                </r:RibbonGroup>
+                <r:RibbonGroup Name="SizeBar" Header="Work item size">
+                    <StackPanel>
+                        <RadioButton GroupName="WorkItemSize" Content="Small" IsEnabled="{Binding Path=AllowSmallWorkItems}" Margin="4" IsChecked="{Binding Path=SelectedWorkItemSize, Mode=TwoWay, 
+                                 Converter={StaticResource WorkItemSizeConverter}, ConverterParameter=Small}" Checked="WorkItemSizeChanged_Checked"/>
+                        <RadioButton GroupName="WorkItemSize" Content="Medium" Margin="4" IsChecked="{Binding Path=SelectedWorkItemSize, Mode=TwoWay, 
+                                 Converter={StaticResource WorkItemSizeConverter}, ConverterParameter=Medium}" Checked="WorkItemSizeChanged_Checked"/>
+                        <RadioButton GroupName="WorkItemSize" Content="Large" IsEnabled="{Binding Path=AllowLargeWorkItems}" Margin="4" IsChecked="{Binding Path=SelectedWorkItemSize, Mode=TwoWay, 
+                                 Converter={StaticResource WorkItemSizeConverter}, ConverterParameter=Large}" Checked="WorkItemSizeChanged_Checked"/>
+                    </StackPanel>
+                </r:RibbonGroup>
+                <r:RibbonGroup Name="ReportViewer" Header="Report">
+                    <r:RibbonToggleButton Name="ShowHideReporViewerToggleBox" DataContext="{x:Static local:TaskboardCommands.ShowHideReportViewer}" IsChecked="True"/>
+                </r:RibbonGroup>
+                
+            </r:RibbonTab>
+        </r:Ribbon>
+        <controls:StatusView x:Name="status" DockPanel.Dock="Bottom" />
+        <Adorner:AdornedControl IsAdornerVisible="{Binding Path=ShowPopupWindow}">
+            <Adorner:AdornedControl.AdornerContent>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="70"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="2" Margin="0" CornerRadius="5,5,5,5" Background="LightGray">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal" VerticalAlignment="Center" Margin="3">
+                            <TextBlock Text="The refresh will be performed in '" VerticalAlignment="Center"/>
+                            <TextBlock Text="{Binding Path=RemainingSeconds}" VerticalAlignment="Center"/>
+                            <TextBlock Text="' seconds. To cancel the refresh, click or move mouse. " VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Adorner:AdornedControl.AdornerContent>
+            <local:TaskboardContent x:Name="taskboardContent" HorizontalContentAlignment="Stretch" />
+        </Adorner:AdornedControl>                                                                
+    </DockPanel>
+</r:RibbonWindow>

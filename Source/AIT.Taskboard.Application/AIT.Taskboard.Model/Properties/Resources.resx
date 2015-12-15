@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="WorkItemIssueDetailInvalidField" xml:space="preserve">
+    <value>Field '{0}' is invalid ({1}).</value>
+  </data>
+  <data name="WorkItemIssueStatusReadyToPublish" xml:space="preserve">
+    <value>Ready To Publish</value>
+  </data>
+  <data name="WorkItemIssueStatusNotPublished" xml:space="preserve">
+    <value>Not Published</value>
+  </data>
+  <data name="WorkItemIssueStatusNoChangesToPublish" xml:space="preserve">
+    <value>No changes to publish</value>
+  </data>
+  <data name="CouldNotSaveConfigFile" xml:space="preserve">
+    <value>Could not save updated configuration to file '{0}'...</value>
+  </data>
+  <data name="LicenseRegistration_UserNameFailed" xml:space="preserve">
+    <value>Validation of license user name failed.</value>
+  </data>
+  <data name="LicenseRegistration_WrongVersion" xml:space="preserve">
+    <value>This license key is not valid for current product version.</value>
+  </data>
+  <data name="LicenseStatus_ActivationFailed" xml:space="preserve">
+    <value>The license could not be activated. This happens when the number of activations exceed the maximum activations allowed by the license or when the license web service is not accessible.</value>
+  </data>
+  <data name="LicenseStatus_CryptoLicensingModuleTampered" xml:space="preserve">
+    <value>The strong name verification of the LogicNP.CryptoLicensing.dll assembly failed.</value>
+  </data>
+  <data name="LicenseStatus_CumulativeRunTimeExceeded" xml:space="preserve">
+    <value>The cumulative (over many runs) run-time of the software has exceeded the maximum allowed cumulative run-time specified by the license.</value>
+  </data>
+  <data name="LicenseStatus_DateRollbackDetected" xml:space="preserve">
+    <value>Date rollback was detected. This happens when the current date on the machine is earlier than the date on which the license is generated.</value>
+  </data>
+  <data name="LicenseStatus_Deactivated" xml:space="preserve">
+    <value>The license has been deactivated from the local machine. Attempting to use a deactivated license on the machine fails.</value>
+  </data>
+  <data name="LicenseStatus_DebuggerDetected" xml:space="preserve">
+    <value>Managed or unmanaged debugger or tracer was detected during license validation.</value>
+  </data>
+  <data name="LicenseStatus_DomainInvalid" xml:space="preserve">
+    <value>The license validation was attempted under a domain different from those specified in the license.</value>
+  </data>
+  <data name="LicenseStatus_EvaluationExpired" xml:space="preserve">
+    <value>The evaluation period has expired. This can happen when either the usage days, unique usage days, executions, instances, run-time or cumulative run-time is exceeded, or if evaluation tampering is detected.</value>
+  </data>
+  <data name="LicenseStatus_EvaluationlTampered" xml:space="preserve">
+    <value>The evaluation has been tampered. This happens when the user attempts to extend the evaluation time by setting the local date-time of the computer.</value>
+  </data>
+  <data name="LicenseStatus_ExecutionsExceeded" xml:space="preserve">
+    <value>The number of executions have exceeded. This happens when the number of executions of the software exceeds the maximum allowed executions specified by the license.</value>
+  </data>
+  <data name="LicenseStatus_Expired" xml:space="preserve">
+    <value>The license has expired. This happens when the local time is greater than the date of expiration specified by the license.</value>
+  </data>
+  <data name="LicenseStatus_GenericFailure" xml:space="preserve">
+    <value>Generic failure occurred while validating the license.</value>
+  </data>
+  <data name="LicenseStatus_HostAssemblyDifferent" xml:space="preserve">
+    <value>The host assembly is different from the host assembly data embedded in the license.</value>
+  </data>
+  <data name="LicenseStatus_InstancesExceeded" xml:space="preserve">
+    <value>The number of instances of the software have exceeded. This happens when the number of instances of the host application exceeds the maximum allowed instances specified by the license.</value>
+  </data>
+  <data name="LicenseStatus_InValid" xml:space="preserve">
+    <value>The license validation failed in one or more respects. Depending on the condition that caused the validation to fail, one or more of the remaining flags are also set.</value>
+  </data>
+  <data name="LicenseStatus_LocalTimeInvalid" xml:space="preserve">
+    <value>The local system time differs from the time returned by the license service by more than 4 hours.</value>
+  </data>
+  <data name="LicenseStatus_MachineCodeInvalid" xml:space="preserve">
+    <value>The machine code embedded in the license is invalid - that is, it does not match the local machine code.</value>
+  </data>
+  <data name="LicenseStatus_NotValidated" xml:space="preserve">
+    <value>License  is not yet validated.</value>
+  </data>
+  <data name="LicenseStatus_RemoteSessionDetected" xml:space="preserve">
+    <value>The host software is running in a remote session like that of Remote Desktop, Terminal Services or Citrix.</value>
+  </data>
+  <data name="LicenseStatus_RunTimeExceeded" xml:space="preserve">
+    <value>The run-time of the software has exceeded the maximum allowed run-time specified by the license.</value>
+  </data>
+  <data name="LicenseStatus_SerialCodeInvalid" xml:space="preserve">
+    <value>The serial code is invalid.</value>
+  </data>
+  <data name="LicenseStatus_ServiceNotificationFailed" xml:space="preserve">
+    <value>The notification of the validation to the license service failed.</value>
+  </data>
+  <data name="LicenseStatus_SignatureInvalid" xml:space="preserve">
+    <value>The cryptographic signature is invalid.</value>
+  </data>
+  <data name="LicenseStatus_StrongNameVerificationFailed" xml:space="preserve">
+    <value>The strong name verification of the host assembly failed.</value>
+  </data>
+  <data name="LicenseStatus_UniqueUsageDaysExceeded" xml:space="preserve">
+    <value>The unique usage days have exceeded. This happens when the number of unique days that the software was used on exceeds the maximum allowed unique usage days specified by the license.</value>
+  </data>
+  <data name="LicenseStatus_UsageDaysExceeded" xml:space="preserve">
+    <value>The usage days have exceeded. This happens when the number of days passed since the first time the license was used exceeds the maximum allowed usage days specified by the license.</value>
+  </data>
+  <data name="LicenseStatus_UsageModeInvalid" xml:space="preserve">
+    <value>The license usage mode is invalid. This happens when a license not marked as 'valid at design-time' is used at design-time or a license not marked as 'valid at run-time' is used at run-time.</value>
+  </data>
+  <data name="LicenseStatus_Valid" xml:space="preserve">
+    <value>The license is valid in all respects.</value>
+  </data>
+</root>

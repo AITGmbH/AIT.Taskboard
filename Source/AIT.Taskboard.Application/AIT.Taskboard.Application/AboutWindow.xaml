@@ -1,0 +1,108 @@
+﻿<Window x:Class="AIT.Taskboard.Application.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:Model="clr-namespace:AIT.Taskboard.ViewModel;assembly=AIT.Taskboard.ViewModel" 
+        xmlns:converter="clr-namespace:AIT.Taskboard.Application.Converter" 
+        Title="About AIT TeamSystemPro Task Board" Width="380" 
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize" ShowInTaskbar="False" SizeToContent="Height">
+    <Window.Resources>
+        
+        <converter:BooleanToVisibilityConverter x:Key="VisibilityConverter" OnTrue="Visible" OnFalse="Collapsed" Inverted="True" />        
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Border Grid.Row="0" Margin="6,6,6,6" BorderThickness="1" BorderBrush="Black">
+            <Image Source="Images\AIT_TeamSystemPro_Team_gross.gif" Stretch="Uniform" HorizontalAlignment="Right" />
+        </Border>
+        <Border Grid.Row="1" Margin="6,0,6,6" BorderThickness="1" BorderBrush="Black">
+            <StackPanel Orientation="Vertical">
+                <Label FontWeight="Bold" Content="{Binding Path=AssemblyName}"></Label>
+
+                <Label Content="{Binding Path=AssemblyVersion}"></Label>
+                <Label Content="{Binding Path=AssemblyCopyright}"></Label>
+                <Label Content="{Binding Path=AssemblyDescription}" FontSize="8"></Label>
+                <TextBlock Grid.Column="2" Grid.Row="7">
+                    <Hyperlink Name="hyperlinkLicense"
+                               RequestNavigate="HandleHyperlinkLicenseRequestNavigate"
+                               NavigateUri="http://public.aitag.com/taskboard/AIT%20EULA.pdf">License Agreement</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="2" Margin="6,0,6,6" BorderThickness="1" BorderBrush="Black" Visibility="Collapsed">
+            <StackPanel>
+                <TextBlock FontWeight="Bold" Text="License info:" />
+                <TextBlock Margin="10,0,0,5" Text="{Binding LicenseInfo}"/>
+                <Grid Margin="10,5,0,0" Visibility="{Binding IsPremiumUnregistered, Converter={StaticResource VisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Text="User Name:"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="5" Padding="0" Text="{Binding LicenseName}" />
+                    <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Text="License Key:" />
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Padding="0" Text="{Binding LicenseKey}" />
+                    <TextBlock Grid.Row="2" Grid.Column="1" Margin="5,0">
+                        <Hyperlink RequestNavigate="HandleHyperlinkNavigate"  
+                                    NavigateUri="http://www.aitgmbh.de">Purchase online</Hyperlink>
+                    </TextBlock>
+                    <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Width="70" Margin="10,5" Click="ButtonRegister_Click">Register</Button>
+                </Grid>
+                <Button HorizontalAlignment="Right" Margin="10,5" Visibility="{Binding IsPremiumRegistered, Converter={StaticResource VisibilityConverter}}" Click="ButttonTerminate_Click">Terminate license</Button>
+            </StackPanel>
+        </Border>
+        <Border Grid.Row="3" Margin="6,0,6,6" BorderThickness="1" BorderBrush="Black">
+            <Grid Margin="3,3,3,3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <!-- first block -->
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0">AIT GmbH &amp; Co. KG</TextBlock>
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1">Leitzstraße 45</TextBlock>
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="2">D-70469 Stuttgart</TextBlock>
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3">Germany</TextBlock>
+                <TextBlock Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4"></TextBlock>
+                <!-- second block - first column -->
+                <TextBlock Grid.Column="0" Grid.Row="5">Tel:</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="6">Fax:</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="7">E-mail:</TextBlock>
+                <TextBlock Grid.Column="0" Grid.Row="8">Internet:</TextBlock>
+                <!-- second block - second column -->
+                <TextBlock Grid.Column="2" Grid.Row="5">+49 711 49066-430</TextBlock>
+                <TextBlock Grid.Column="2" Grid.Row="6">+49 711 49066-440</TextBlock>
+                
+                <TextBlock Grid.Column="2" Grid.Row="8">
+                    <Hyperlink Name="hyperlinkWeb" 
+                               RequestNavigate="HandleHyperlinkWebRequestNavigate"
+                               NavigateUri="http://www.aitgmbh.de">http://www.aitgmbh.de</Hyperlink>
+                </TextBlock>
+            </Grid>
+        </Border>
+        <Button Grid.Row="4" Name="buttonOK" Margin="0,0,6,6" HorizontalAlignment="Right" Width="100" Click="HandleButtonOKClick" IsDefault="True" IsCancel="True">_OK</Button>
+    </Grid>
+</Window>

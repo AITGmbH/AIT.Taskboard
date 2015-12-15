@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="AIT.Taskboard.Application.Controls.NumericUpDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AIT.Taskboard.Application.Controls"
+             mc:Ignorable="d">
+    <Grid x:Name="NumericUpDownControl">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <TextBox Name="numericUpDown" Grid.Row="1" Text="{Binding Path=Value, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Mode=TwoWay, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}" />
+        <RepeatButton Name="upButton" Opacity="0.0" IsTabStop="False" Focusable="False" Command="{x:Static local:NumericUpDown.IncreaseCommand}">
+            <Polygon Points="0,1 0.5,0 1,1" Fill="Black" Width="40" HorizontalAlignment="Center" Stretch="Fill" Stroke="Black" StrokeThickness="2" />
+        </RepeatButton>
+        <RepeatButton Name="downButton" Grid.Row="2" Opacity="0.0" IsTabStop="False" Focusable="False" Command="{x:Static local:NumericUpDown.DecreaseCommand}">
+            <Polygon Points="0,0 0.5,1 1,0" Fill="Black" Width="40" HorizontalAlignment="Center" Stretch="Fill" Stroke="Black" StrokeThickness="2" />
+        </RepeatButton>
+        <Grid.Triggers>
+            <!--<DataTrigger Binding="{Binding ElementName=NumericUpDownControl, Path=IsKeyboardFocusWithin}" Value="True">
+                <DataTrigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="upButton" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" />
+                            <DoubleAnimation Storyboard.TargetName="downButton" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.EnterActions>
+                <DataTrigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetName="upButton" Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.1" />
+                            <DoubleAnimation Storyboard.TargetName="downButton" Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </DataTrigger.ExitActions>
+            </DataTrigger>-->
+            <EventTrigger RoutedEvent="TextBox.GotFocus" SourceName="numericUpDown">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="upButton" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" />
+                        <DoubleAnimation Storyboard.TargetName="downButton" Storyboard.TargetProperty="Opacity" To="1.0" Duration="0:0:0.2" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="TextBox.LostFocus" SourceName="numericUpDown">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation Storyboard.TargetName="upButton" Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.1" />
+                        <DoubleAnimation Storyboard.TargetName="downButton" Storyboard.TargetProperty="Opacity" To="0.0" Duration="0:0:0.1" />
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Grid.Triggers>
+    </Grid>
+</UserControl>

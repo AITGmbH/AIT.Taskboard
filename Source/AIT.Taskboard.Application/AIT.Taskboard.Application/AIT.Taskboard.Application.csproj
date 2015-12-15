@@ -1,0 +1,523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AIT.Taskboard.Application</RootNamespace>
+    <AssemblyName>AIT.Taskboard.Application</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>TaskboardLogoT.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.Client, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Client, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\TeamFoundation\Microsoft.TeamFoundation.WorkItemTracking.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.WorkItemTracking.Controls, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\Lib\TeamFoundation\Microsoft.TeamFoundation.WorkItemTracking.Controls.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Lib\OfficeFluentUI\RibbonControlsLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="..\..\Common\SolutionInfo.cs">
+      <Link>Properties\SolutionInfo.cs</Link>
+    </Compile>
+    <Compile Include="AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ConfigurationWindow.xaml.cs">
+      <DependentUpon>ConfigurationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\AdornerHelper\AdornedControl.cs" />
+    <Compile Include="Controls\AdornerHelper\AdornerPlacement.cs" />
+    <Compile Include="Controls\AdornerHelper\FrameworkElementAdorner.cs" />
+    <Compile Include="Controls\DataGridBoundTemplateColumn.cs" />
+    <Compile Include="Controls\EditableTextBlock.xaml.cs">
+      <DependentUpon>EditableTextBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NumericUpDownControl.xaml.cs">
+      <DependentUpon>NumericUpDownControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatusView.xaml.cs">
+      <DependentUpon>StatusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\WorkItemControl.cs" />
+    <Compile Include="Converter\BlockedConverter.cs" />
+    <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converter\ColumnSummaryConverter.cs" />
+    <Compile Include="Converter\FieldValueVisibilityConverter.cs" />
+    <Compile Include="Converter\FileNameConverter.cs" />
+    <Compile Include="Converter\FilteredNumericFieldsConverter.cs" />
+    <Compile Include="Converter\QueryHierarchyForegroundConverter.cs" />
+    <Compile Include="Converter\QueryHierarchyImageConverter.cs" />
+    <Compile Include="Converter\RowHeaderWidthConverter.cs" />
+    <Compile Include="Converter\TimeInStateConverter.cs" />
+    <Compile Include="Converter\FilterVisibilityConverter.cs" />
+    <Compile Include="Converter\NumericFieldsConverter.cs" />
+    <Compile Include="Converter\ReportItemConverter.cs" />
+    <Compile Include="Converter\RibbonComboBoxConverter.cs" />
+    <Compile Include="Converter\RowSummaryConverter.cs" />
+    <Compile Include="Converter\ContainsToBoolConverter.cs" />
+    <Compile Include="Converter\EmptyItemConverter.cs" />
+    <Compile Include="Converter\QueryItemConverter.cs" />
+    <Compile Include="Converter\TitleConverter.cs" />
+    <Compile Include="Converter\UserNameToImageConverter.cs" />
+    <Compile Include="Converter\WorkItemColorConverter.cs" />
+    <Compile Include="Converter\WorkItemNumericFieldValueConverter.cs" />
+    <Compile Include="Converter\WorkItemSizeConverter.cs" />
+    <Compile Include="DragDrop\DragDropHelper.cs" />
+    <Compile Include="DragDrop\DraggedAdorner.cs" />
+    <Compile Include="EmailCreation\EmailCreationService.cs" />
+    <Compile Include="Helper\ApplicationHelper.cs" />
+    <Compile Include="Helper\ChildStateHelper.cs" />
+    <Compile Include="Helper\FieldHelper.cs" />
+    <Compile Include="Helper\RowSummaryItem.cs" />
+    <Compile Include="Helper\WindowHelper.cs" />
+    <Compile Include="Helper\WpfHelper.cs" />
+    <Compile Include="LinkedWorkItemWindow.xaml.cs">
+      <DependentUpon>LinkedWorkItemWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ObjectReferenceExtension.cs" />
+    <Compile Include="QuerySelectWindow.xaml.cs">
+      <DependentUpon>QuerySelectWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ReportControl.xaml.cs">
+      <DependentUpon>ReportControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converter\StringNullVisibilityConverter.cs" />
+    <Compile Include="TaskboardCommands.cs" />
+    <Compile Include="TaskboardContent.xaml.cs">
+      <DependentUpon>TaskboardContent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TaskboardControl.xaml.cs">
+      <DependentUpon>TaskboardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Selectors\WorkItemTemplateSelector.cs" />
+    <Compile Include="HotfixedDataGrid.cs" />
+    <Compile Include="UIInteraction\GestureController.cs" />
+    <Compile Include="UIInteraction\GestureEventManager.cs" />
+    <Compile Include="UIInteraction\IControlManipulation.cs" />
+    <Compile Include="UIInteraction\MultiTouchManager.cs" />
+    <Compile Include="UIInteraction\ReportControlManipulator.cs" />
+    <Compile Include="UIInteraction\TaskboardControlManipulator.cs" />
+    <Compile Include="UIInteraction\TouchEventManager.cs" />
+    <Compile Include="UIInteraction\WorkitemControlManipulator.cs" />
+    <Compile Include="WorkItemIssueWindow.xaml.cs">
+      <DependentUpon>WorkItemIssueWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WorkItemWindow.xaml.cs">
+      <DependentUpon>WorkItemWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ConfigurationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\EditableTextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\NumericUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\NumericUpDownControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\StatusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <None Include="WorkItemTemplates.Avira.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <Page Include="LinkedWorkItemWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="QuerySelectWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ReportControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TaskboardCommands.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TaskboardContent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TaskboardControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Resource Include="Images\Bug.png" />
+    <Resource Include="Images\ChangeRequest.png" />
+    <Resource Include="Images\Impediment.png" />
+    <Resource Include="Images\Issue.png" />
+    <Resource Include="Images\ProductBacklogItem.png" />
+    <Resource Include="Images\Requirement.png" />
+    <Resource Include="Images\Review.png" />
+    <Resource Include="Images\Risk.png" />
+    <Resource Include="Images\SprintBacklogItem.png" />
+    <Resource Include="Images\Task.png" />
+    <Resource Include="Images\UserStory.png" />
+    <Resource Include="LargeImages\forbidden.png" />
+    <Resource Include="SmallImages\AITLogo16.png" />
+    <Resource Include="SmallImages\information.png" />
+    <Resource Include="SmallImages\zoom_in.png" />
+    <Resource Include="SmallImages\zoom_out.png" />
+    <Resource Include="SmallImages\help2.png" />
+    <Resource Include="SmallImages\table_selection_all.png" />
+    <Resource Include="SmallImages\table_selection_cell.png" />
+    <Resource Include="SmallImages\table_selection_row.png" />
+    <Resource Include="LargeImages\table_selection_all.png" />
+    <Resource Include="LargeImages\table_selection_cell.png" />
+    <Resource Include="LargeImages\table_selection_row.png" />
+    <Resource Include="SmallImages\printer.png" />
+    <Resource Include="LargeImages\printer.png" />
+    <Resource Include="LargeImages\AITLogo32.png" />
+    <Resource Include="Images\AITLogo40.png" />
+    <Resource Include="Images\AITLogo48.png" />
+    <Resource Include="Images\AITLogo64.png" />
+    <Resource Include="SmallImages\wrench.png" />
+    <Resource Include="LargeImages\wrench.png" />
+    <Resource Include="SmallImages\TeamExplorerFlatList.png" />
+    <Resource Include="SmallImages\TeamExplorerMyQueries.png" />
+    <Resource Include="SmallImages\TeamExplorerDirectLink.png" />
+    <Resource Include="SmallImages\TeamExplorerFolderCollapsed.png" />
+    <Resource Include="SmallImages\TeamExplorerFolderExpanded.png" />
+    <Resource Include="SmallImages\TeamExplorerNoWorkItems.png" />
+    <Resource Include="SmallImages\TeamExplorerTeamProject.png" />
+    <Resource Include="SmallImages\TeamExplorerTeamQueries.png" />
+    <Resource Include="SmallImages\TeamExplorerTree.png" />
+    <Resource Include="SmallImages\TeamExplorerWorkItemsRoot.png" />
+    <Resource Include="SmallImages\TeamExplorerUser.png" />
+    <Resource Include="SmallImages\TaskboardAppMenuLogo.png" />
+    <Resource Include="LargeImages\TaskboardAppMenuLogo.png" />
+    <Resource Include="LargeImages\TaskboardLogoT.png" />
+    <Resource Include="TaskboardLogoT.ico" />
+    <Page Include="WorkItemIssueWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Resource Include="SmallImages\gear.png" />
+    <Resource Include="LargeImages\gear.png" />
+    <None Include="WorkItemTemplates.xaml">
+      <SubType>Designer</SubType>
+    </None>
+    <Page Include="WorkItemResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="WorkItemWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AITLogo.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AITLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AIT.Taskboard.Interface\AIT.Taskboard.Interface.csproj">
+      <Project>{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}</Project>
+      <Name>AIT.Taskboard.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIT.Taskboard.Model\AIT.Taskboard.Model.csproj">
+      <Project>{4a060352-572e-41df-a713-7fcac22c10dd}</Project>
+      <Name>AIT.Taskboard.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AIT.Taskboard.ViewModel\AIT.Taskboard.ViewModel.csproj">
+      <Project>{F02F58B3-56BB-4B5C-9603-A1C993BE2007}</Project>
+      <Name>AIT.Taskboard.ViewModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LargeImages\server_client.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmallImages\server_client.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmallImages\disk_blue.png" />
+    <Resource Include="SmallImages\preferences.png" />
+    <Resource Include="SmallImages\refresh.png" />
+    <Resource Include="SmallImages\view.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LargeImages\disk_blue.png" />
+    <Resource Include="LargeImages\preferences.png" />
+    <Resource Include="LargeImages\refresh.png" />
+    <Resource Include="LargeImages\view.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LargeImages\navigate_down.png" />
+    <Resource Include="LargeImages\navigate_minus.png" />
+    <Resource Include="LargeImages\navigate_plus.png" />
+    <Resource Include="LargeImages\navigate_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmallImages\navigate_down.png" />
+    <Resource Include="SmallImages\navigate_minus.png" />
+    <Resource Include="SmallImages\navigate_plus.png" />
+    <Resource Include="SmallImages\navigate_up.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="AITLogoIcon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmallImages\forbidden.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LargeImages\zoom_in.png" />
+    <Resource Include="LargeImages\zoom_out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Logo_Taskboard.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmallImages\clock.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmallImages\user1.png" />
+    <Resource Include="SmallImages\user2.png" />
+    <Resource Include="SmallImages\user3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\TestCase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LargeImages\help2.png" />
+    <Resource Include="LargeImages\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\AIT_TeamSystemPro_Team_gross.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LargeImages\folder_into.png" />
+    <Resource Include="LargeImages\folder_out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmallImages\folder_into.png" />
+    <Resource Include="SmallImages\folder_out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LargeImages\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmallImages\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LargeImages\document_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmallImages\document_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <FileAssociation Include=".tbconfig">
+      <Visible>False</Visible>
+      <Description>AIT Task Board Configuration File</Description>
+      <Progid>AIT.Taskboard.ConfigurationFile</Progid>
+      <DefaultIcon>TaskboardLogoT.ico</DefaultIcon>
+    </FileAssociation>
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="Settings.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmallImages\add_child.png" />
+    <Resource Include="SmallImages\AutoRefresh.png" />
+    <Resource Include="SmallImages\edit_bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="SmallImages\hidereport_bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LargeImages\add_child.png" />
+    <Resource Include="LargeImages\AutoRefresh.png" />
+    <Resource Include="LargeImages\edit_bar.png" />
+    <Resource Include="LargeImages\hidereport_bar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\down.png" />
+    <Resource Include="Images\up.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

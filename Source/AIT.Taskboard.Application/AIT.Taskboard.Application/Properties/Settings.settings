@@ -1,0 +1,36 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AIT.Taskboard.Application.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Width" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">900</Value>
+    </Setting>
+    <Setting Name="Height" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">700</Value>
+    </Setting>
+    <Setting Name="Top" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Left" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="IsMaximized" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SplitterPosition" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0.5</Value>
+    </Setting>
+    <Setting Name="RecipientTo" Type="System.String" Scope="User">
+      <Value Profile="(Default)">info@aitag.com</Value>
+    </Setting>
+    <Setting Name="RecipientCC" Type="System.String" Scope="User">
+      <Value Profile="(Default)">info@aitag.com</Value>
+    </Setting>
+    <Setting Name="RecipientBCC" Type="System.String" Scope="User">
+      <Value Profile="(Default)">info@aitag.com</Value>
+    </Setting>
+    <Setting Name="EmailSubject" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Error log</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

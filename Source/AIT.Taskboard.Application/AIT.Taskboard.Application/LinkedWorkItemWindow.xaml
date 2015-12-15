@@ -1,0 +1,238 @@
+﻿<Window x:Class="AIT.Taskboard.Application.LinkedWorkItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converter="clr-namespace:AIT.Taskboard.Application.Converter" 
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="ToolWindow"
+        Width="506" Height="365" MinHeight="350" MinWidth="500">
+    <Window.Title>
+        <MultiBinding StringFormat="Add new linked work item to {0} {1}: {2}">
+            <Binding Path="WorkItem.Type.Name" />
+            <Binding Path="WorkItem.Id" />
+            <Binding Path="WorkItem.Title" />
+        </MultiBinding>
+    </Window.Title>   
+    <Window.Resources>
+        <DataTemplate x:Key="LinkTypeTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Path=Name}" />
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="WorkItemTypeTemplate">
+            <StackPanel>
+                <TextBlock Text="{Binding Path=Name}" />
+            </StackPanel>
+        </DataTemplate>
+        <CollectionViewSource x:Key="linkTypes" Source="{Binding Path=LinkTypeEnds}"/>       
+        <ControlTemplate x:Key="NewWorkItem" TargetType="{x:Type Label}">
+            <Grid>
+                <Rectangle Height="40" RadiusX="8" RadiusY="10" Stroke="YellowGreen" StrokeThickness="3">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="1,0">
+                            <!-- This gradient stop is partially transparent. -->
+                            <GradientStop Color="LightGoldenrodYellow" Offset="0.0" />
+                            <!-- This gradient stop is fully opaque. -->
+                            <GradientStop Color="YellowGreen" Offset="1.6" />
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis" Text="{Binding PreviewWorkItemTemplate, Mode=TwoWay}" />
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="LinkedWorkItem" TargetType="{x:Type Label}">
+            <Grid>
+                <Rectangle Height="40" RadiusX="8" RadiusY="10" Stroke="SkyBlue" StrokeThickness="3">
+                    <Rectangle.Fill>
+                        <LinearGradientBrush StartPoint="1,0">
+                            <!-- This gradient stop is partially transparent. -->
+                            <GradientStop Color="LightCyan" Offset="0.0" />
+                            <!-- This gradient stop is fully opaque. -->
+                            <GradientStop Color="SkyBlue" Offset="1.6" />
+                        </LinearGradientBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis">
+                    <TextBlock.Text>
+                         <MultiBinding StringFormat=" {0} {1}: {2}">
+                            <Binding Path="WorkItem.Type.Name" />
+                            <Binding Path="WorkItem.Id" />
+                            <Binding Path="WorkItem.Title" />
+                    </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="HorizontalArrow" TargetType="{x:Type Label}">
+            <Canvas Grid.Column="1" Width="40" Height="20">
+                <Line X1="0" Y1="10" X2="40" Y2="10" Stroke="DarkGray" 
+                          StrokeThickness="4" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round"/>
+                <Line X1="40" Y1="10" X2="20" Y2="4" Stroke="DarkGray" 
+                          StrokeThickness="4" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round"/>
+                <Line X1="40" Y1="10" X2="20" Y2="16" Stroke="DarkGray" 
+                          StrokeThickness="4" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round"/>
+            </Canvas>
+        </ControlTemplate>
+        <ControlTemplate x:Key="VerticalLine" TargetType="{x:Type Label}">
+            <Canvas Grid.Column="1" Width="40" Height="20">
+                <Line X1="10" Y1="0" X2="10" Y2="30" Stroke="DarkGray" 
+                          StrokeThickness="4" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round"/>               
+            </Canvas>
+        </ControlTemplate>
+        <ControlTemplate x:Key="VerticalArrow" TargetType="{x:Type Label}">
+            <Canvas Grid.Column="1" Width="40" Height="20">
+                <Line X1="10" Y1="0" X2="10" Y2="30" Stroke="DarkGray" 
+                          StrokeThickness="4" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round"/>
+                <Line X1="10" Y1="30" X2="70" Y2="30" Stroke="DarkGray" 
+                          StrokeThickness="4" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round"/>
+                <Line X1="70" Y1="30" X2="50" Y2="23" Stroke="DarkGray" 
+                          StrokeThickness="4" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round"/>
+                <Line X1="70" Y1="30" X2="50" Y2="37" Stroke="DarkGray" 
+                          StrokeThickness="4" StrokeDashCap="Round" StrokeEndLineCap="Round" StrokeStartLineCap="Round"/>
+            </Canvas>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ParentChildListPreviewControl" TargetType="{x:Type Label}">
+            <Grid Margin="0 4 0 4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180*" />
+                    <ColumnDefinition Width="44"/>
+                    <ColumnDefinition Width="180*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Template="{StaticResource NewWorkItem}"/>
+                <Label Grid.Column="1" Template="{StaticResource HorizontalArrow}"/>
+                <Label Grid.Column="2" Template="{StaticResource LinkedWorkItem}"/>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ChildParentListPreviewControl" TargetType="{x:Type Label}">
+            <Grid Margin="0 4 0 4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="180*" />
+                    <ColumnDefinition Width="44"/>
+                    <ColumnDefinition Width="180*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Template="{StaticResource LinkedWorkItem}"/>
+                <Label Grid.Column="1" Template="{StaticResource HorizontalArrow}"/>
+                <Label Grid.Column="2" Template="{StaticResource NewWorkItem}"/>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ChildParentTreePreviewControl" TargetType="{x:Type Label}">
+            <Grid Margin="0 4 0 4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40*" />
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180*" />
+                        <ColumnDefinition Width="60"/>
+                     </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Template="{StaticResource LinkedWorkItem}"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="180*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Template="{StaticResource VerticalArrow}" />
+                </Grid>               
+                <Grid  Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="81" />
+                        <ColumnDefinition Width="180*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="1" Template="{StaticResource NewWorkItem}"/>
+                </Grid>                
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ParentChildTreePreviewControl" TargetType="{x:Type Label}">
+            <Grid Margin="0 4 0 4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40*" />
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180*" />
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0" Template="{StaticResource NewWorkItem}"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60" />
+                        <ColumnDefinition Width="180*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Template="{StaticResource VerticalArrow}" />
+                </Grid>
+                <Grid  Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="81" />
+                        <ColumnDefinition Width="180*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="1" Template="{StaticResource LinkedWorkItem}"/>
+                </Grid>
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ParentChildRelatedPreviewControl" TargetType="{x:Type Label}">
+            <Grid Margin="0 4 0 4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40*" />
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="40*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Template="{StaticResource LinkedWorkItem}" Margin="20 0 20 0"/>
+                <Label Grid.Row="1" Template="{StaticResource VerticalLine}"/>
+                <Label Grid.Row="2" Template="{StaticResource NewWorkItem}" Margin="20 0 20 0"/>
+            </Grid>
+        </ControlTemplate>
+    </Window.Resources>
+    <StackPanel Margin="4">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="96*" />
+                <ColumnDefinition Width="308*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Link type:"  Grid.ColumnSpan="2" />
+            <ComboBox Grid.Column="1" Margin="0 4 0 0" x:Name="linkTypes" HorizontalAlignment="Stretch" 
+                      ItemsSource="{Binding Source={StaticResource linkTypes}}" ItemTemplate="{StaticResource LinkTypeTemplate}"
+                      SelectionChanged="linkTypes_SelectionChanged"
+                      SelectedItem="{Binding SelectedLinkTypeEnd}"/>
+        </Grid>
+        <GroupBox Header="Work item details">
+            <StackPanel>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="96*" />
+                        <ColumnDefinition Width="308*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Work item type:" Grid.Row="0" Grid.ColumnSpan="2" />
+                    <Label Content="Work item title:" Grid.Row="1" Grid.ColumnSpan="2" />
+                    <Label Content="Link comment:" Grid.Row="2" Grid.ColumnSpan="2" />
+                    <ComboBox Grid.Row="0" Grid.Column="1"  Margin="0 4 0 0" Name="cbWIType"
+                              HorizontalAlignment="Stretch" ItemsSource="{Binding WorkItemTypes}" ItemTemplate="{StaticResource WorkItemTypeTemplate}" 
+                              SelectedItem="{Binding SelectedWorkItemType}"/>
+                    <TextBox Grid.Row="1" Grid.Column="1"  Margin="0 4 0 0" Name="tbTitle" HorizontalAlignment="Stretch" Text="{Binding NewWorkItemTitle, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox Grid.Row="2" Grid.Column="1"  Margin="0 4 0 0" Name="tbComment" HorizontalAlignment="Stretch" Text="{Binding NewWorkItemComment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+                <Label Content="Link Preview Visualization" FontWeight="Bold"/>
+                <Label Height="110" x:Name="previewVizualization" Margin="0 4 0 4" Template="{StaticResource ChildParentTreePreviewControl}"/>
+            </StackPanel>
+        </GroupBox>      
+        <Grid Margin="0 6 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto" />                
+            </Grid.ColumnDefinitions>           
+            <Button Grid.Column="1" Margin="0 4 4 4" Width="100" Height="24" Content="OK" IsDefault="True" Click="Ok_Click"/>
+            <Button Grid.Column="2" Margin="0 4 4 4" Width="100" Height="24" Content="Cancel" IsCancel="True" />
+        </Grid>         
+    </StackPanel>    
+</Window>

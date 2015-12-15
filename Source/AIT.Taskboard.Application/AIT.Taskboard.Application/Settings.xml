@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<settings licenseServiceType="0" projectFilePath="%AppDomainAppPath%App_Data\Taskboard\Taskboard.netlicproj" protectedStorageFile="" address="" addressSigned="" customerDeploymentLicenseCode="" appText="" appIcon="" startMinimized="" serviceName="" serviceDisplayName="" serviceDescription="" connectionstring="Data Source=(local);Initial Catalog=Licensing;Integrated Security=SSPI;" tablenameprefix="" recordIPAddress="True">
+  <email_settings product_email="taskboard@aitgmbh.de"  product_download_link="http://taskboard.aitag.com/2010/Trial/AIT.WordToTFS.vsto" signature_tel="+49 711 49066-430" signature_fax="+49 711 49066-440" signature_email="taskboard@aitgmbh.de" signature_link="http://www.aitgmbh.de" />
+  <product_settings productLicenseVersionNo="1" />
+</settings>

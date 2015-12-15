@@ -1,0 +1,52 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:local="clr-namespace:AIT.Taskboard.Application">
+
+    <local:RibbonCommand x:Key="ConnectToTfsCommand" LabelTitle="Quick Connect" ToolTipTitle="Connect to Team Project" ToolTipDescription="Establish a connection to a Team Project and select a query." SmallImageSource="SmallImages/server_client.png" LargeImageSource="LargeImages/server_client.png" />
+    <local:RibbonCommand x:Key="OpenConfigurationCommand" LabelTitle="Open" ToolTipTitle="Open a configuration" ToolTipDescription="Open a configuration and apply it to the current view." SmallImageSource="SmallImages/folder_out.png" LargeImageSource="LargeImages/folder_out.png" />
+    <local:RibbonCommand x:Key="NewConfigurationCommand" LabelTitle="New" ToolTipTitle="Create a new configuration" ToolTipDescription="Create a new configuration and apply it to the current view." SmallImageSource="SmallImages/document_new.png" LargeImageSource="LargeImages/document_new.png" />
+    <local:RibbonCommand x:Key="SaveConfigurationCommand" LabelTitle="Save as..." ToolTipTitle="Save current configuration as" ToolTipDescription="Save the current configuration to disk" SmallImageSource="SmallImages/disk_blue.png" LargeImageSource="LargeImages/disk_blue.png" />
+    <local:RibbonCommand x:Key="PublishCommand" LabelTitle="Publish" ToolTipTitle="Publish work item changes" ToolTipDescription="Publish your work item changes to Team Foundation Server." SmallImageSource="SmallImages/disk_blue.png" LargeImageSource="LargeImages/disk_blue.png" />
+    <local:RibbonCommand x:Key="RefreshCommand" LabelTitle="Refresh" ToolTipTitle="Refresh data" ToolTipDescription="Refreshes the data based on your settings." SmallImageSource="SmallImages/refresh.png" LargeImageSource="LargeImages/refresh.png" />
+    <local:RibbonCommand x:Key="AutoRefreshCommand" LabelTitle="Auto refresh" ToolTipTitle="Auto refresh data" ToolTipDescription="Automatically refreshes the data based on your settings every few minutes" SmallImageSource="SmallImages/AutoRefresh.png" LargeImageSource="LargeImages/AutoRefresh.png" />
+    <local:RibbonCommand x:Key="SettingsCommand" LabelTitle="Edit" ToolTipTitle="Edit Configuration" ToolTipDescription="Allows you to edit your task board configuration." SmallImageSource="SmallImages/preferences.png" LargeImageSource="LargeImages/preferences.png" />
+    <local:RibbonCommand x:Key="HelpCommand" LabelTitle="Help" ToolTipTitle="Help" ToolTipDescription="Shows help for the taskboard application" LargeImageSource="LargeImages/help2.png" SmallImageSource="SmallImages/help2.png"/>
+    <local:RibbonCommand x:Key="AboutCommand" LabelTitle="About" ToolTipTitle="About" ToolTipDescription="Shows information about the vendor and the application" LargeImageSource="LargeImages/information.png" SmallImageSource="SmallImages/information.png"/>
+    <local:RibbonCommand x:Key="ExitApplicationCommand" LabelTitle="Exit" ToolTipTitle="Exit" ToolTipDescription="Exit the application" LargeImageSource="LargeImages/error.png" SmallImageSource="SmallImages/error.png"/>
+    <local:RibbonCommand x:Key="ApplicationMenuCommand" LargeImageSource="LargeImages/TaskboardAppMenuLogo.png" SmallImageSource="SmallImages/TaskboardAppMenuLogo.png"/>
+    <local:RibbonCommand x:Key="OptionsCommand" LabelTitle="Options" LargeImageSource="LargeImages/gear.png" SmallImageSource="SmallImages/gear.png"/>
+    <local:RibbonCommand x:Key="SelectWorkItemResourceCommand" LabelTitle="Style" ToolTipTitle="Custom work item style" ToolTipDescription="Open a custom work item style definition." LargeImageSource="LargeImages/wrench.png" SmallImageSource="SmallImages/wrench.png"/>
+    <local:RibbonCommand x:Key="ResetWorkItemResourceCommand" LabelTitle="Reset to default" ToolTipTitle="Reset work item style" ToolTipDescription="Clears all custom style and reloads the default style"/>
+    <local:RibbonCommand x:Key="SendFeedbackCommand" LabelTitle="Feedback" ToolTipTitle="Provide feedback" ToolTipDescription="Provide your feedback about AIT TeamSystemPro Task Board." LargeImageSource="LargeImages/AITLogo32.png" SmallImageSource="SmallImages/AITLogo16.png"/>
+    <local:RibbonCommand x:Key="SendFeedbackEmailCommand" LabelTitle="Send error log via Email" ToolTipTitle="Send error log via Email" ToolTipDescription="Send an email with log file attached."/>
+
+    <local:RibbonCommand x:Key="PrintCommand" LabelTitle="Print" ToolTipTitle="Print work items" ToolTipDescription="Print a single work item, a backlog item and its children or all work items." LargeImageSource="LargeImages/Printer.png" SmallImageSource="SmallImages/Printer.png"/>
+    <local:RibbonCommand x:Key="PrintCurrentItemCommand" LabelTitle="Print current work item" ToolTipTitle="Print current work item" ToolTipDescription="Print the current work item." LargeImageSource="LargeImages/table_selection_cell.png" SmallImageSource="SmallImages\table_selection_cell.png" />
+    <local:RibbonCommand x:Key="PrintBacklogItemAndChildrenCommand" LabelTitle="Print backlog item" ToolTipTitle="Print the current backlog item" ToolTipDescription="Print the current backlog item and its children." LargeImageSource="LargeImages/table_selection_row.png" SmallImageSource="SmallImages\table_selection_row.png" />
+    <local:RibbonCommand x:Key="PrintAllItemsCommand" LabelTitle="Print all work items" ToolTipTitle="Print all work items" ToolTipDescription="Print all work items" LargeImageSource="LargeImages/table_selection_all.png" SmallImageSource="SmallImages\table_selection_all.png" />
+
+    <local:RibbonCommand x:Key="FullScreenCommand" LabelTitle="Full screen" ToolTipTitle="Toggle full screen view" ToolTipDescription="View the task board in full screen mode. Return with (ESC)" SmallImageSource="SmallImages/view.png" LargeImageSource="LargeImages/view.png" />
+    <local:RibbonCommand x:Key="ZoomInCommand" LabelTitle="Zoom in" ToolTipTitle="Zoom work items in" ToolTipDescription="Increase the zoom factor for the displayed work items" LargeImageSource="LargeImages/zoom_in.png" SmallImageSource="SmallImages/zoom_in.png"/>
+    <local:RibbonCommand x:Key="ZoomOutCommand" LabelTitle="Zoom out" ToolTipTitle="Zoom work items out" ToolTipDescription="Decreases the zoom factor for the displayed work items" LargeImageSource="LargeImages/zoom_out.png" SmallImageSource="SmallImages/zoom_out.png"/>
+    <local:RibbonCommand x:Key="ShowHideEditBarCommand" LabelTitle="Edit bar" ToolTipTitle="Toggle Edit Bar" ToolTipDescription="Toggles Work Item Edit Bar visibility" LargeImageSource="LargeImages/edit_bar.png" SmallImageSource="SmallImages/edit_bar.png"/>
+    <local:RibbonCommand x:Key="ShowHideReportViewer" LabelTitle="Hide Report Viewer" ToolTipTitle="Toggle Report Viewer Bar" ToolTipDescription="Toggles Report Viewer Bar visibility" LargeImageSource="LargeImages/hidereport_bar.png" SmallImageSource="SmallImages/hidereport_bar.png"/>
+    <local:RibbonCommand x:Key="AddNewLinkedWorkItemCommand" LabelTitle="New linked Work Item" ToolTipTitle="Add new linked work item" ToolTipDescription="Add new linked work item" LargeImageSource="LargeImages/add_child.png" SmallImageSource="SmallImages/add_child.png"/>
+    
+    <RoutedUICommand x:Key="SelectBacklogItemCommand" Text="Un/Select backlog item." />
+	<RoutedUICommand x:Key="SelectChildItemCommand" Text="Un/Select child item" />
+	<RoutedUICommand x:Key="AddCustomStateCommand" Text="Add" />
+	<RoutedUICommand x:Key="RemoveCustomStateCommand" Text="Remove" />
+	<RoutedUICommand x:Key="MoveStateUpCommand" Text="Up" />
+	<RoutedUICommand x:Key="MoveStateDownCommand" Text="Down" />
+    <RoutedUICommand x:Key="SelectWorkItemStateCommand" Text="Un/Select work item state" />
+    <RoutedUICommand x:Key="BrowseColorCommand" Text="Browse for a color" />
+	<RoutedUICommand x:Key="CommitConfigurationDialogCommand" Text="OK" />
+	<RoutedUICommand x:Key="CancelConfigurationDialogCommand" Text="Cancel" />
+    <RoutedUICommand x:Key="CancelIssueDialogCommand" Text="Cancel" />
+    <RoutedUICommand x:Key="PublishIssueWorkItemsCommand" Text="Publish" />
+    <RoutedUICommand x:Key="EditWorkItemCommand" Text="Edit Work Item..." />
+    <RoutedUICommand x:Key="CommitQueryDialogCommand" Text="OK" />
+    <RoutedUICommand x:Key="CancelQueryDialogCommand" Text="Cancel" />
+    <RoutedUICommand x:Key="SaveAndCloseCommand" Text="Save and Close" />
+</ResourceDictionary>

@@ -1,0 +1,67 @@
+﻿<UserControl 
+    xmlns:my="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"  
+    x:Class="AIT.Taskboard.Application.ReportControl" 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:viewer="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms"
+    xmlns:converter="clr-namespace:AIT.Taskboard.Application.Converter"
+    mc:Ignorable="d"  
+    DataContext="{Binding ReportViewModel}" Loaded="UserControl_Loaded" DataContextChanged="HandleDataContextChanged" IsVisibleChanged="UserControlIsVisibleChanged">
+    <UserControl.Resources>
+        <converter:ReportItemConverter x:Key="ReportItemConverter" />
+        <Style x:Key="HoverItem" TargetType="{x:Type TextBlock}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseDirectlyOver" Value="True">
+                    <Setter Property="Background" Value="LightGreen"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <HierarchicalDataTemplate x:Key="ReportCatalogItemTemplate" ItemsSource="{Binding Path=Children}">
+            <TextBlock Text="{Binding Path=Item.Name}" ToolTip="{Binding Path=Item.Description}" Style="{StaticResource HoverItem}" />
+        </HierarchicalDataTemplate>
+        <Style x:Key="treeComboBox" TargetType="ComboBox">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="MinWidth" Value="20"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid>
+                            <ToggleButton Name="ToggleButton" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press" HorizontalContentAlignment="Right">
+                                <Path x:Name="arrow" Fill="#444" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,1,0"/>
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False" Content="{TemplateBinding Text}" Margin="6,3,23,3" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide" StaysOpen="false">
+                                <Grid Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <TreeView x:Name="treeView" KeyboardNavigation.DirectionalNavigation="Contained" Margin="2" SnapsToDevicePixels="True"
+                                              ItemsSource="{Binding Reports}" ItemTemplate="{StaticResource ReportCatalogItemTemplate}" SelectedItemChanged="HandleReportSelectionChanged"/>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <UserControl.Background>
+        <SolidColorBrush Color="{x:Static SystemColors.ControlColor}" />
+    </UserControl.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" LastChildFill="True"> 
+            <Label Content="Report:" DockPanel.Dock="Left"/>
+            <ComboBox x:Name="reportItems" Style="{StaticResource treeComboBox}" Text="{Binding Path=CurrentReport, Converter={StaticResource ReportItemConverter}}" VerticalAlignment="Center"/>
+        </DockPanel>
+        <my:WindowsFormsHost Grid.Row="1" x:Name="host">
+            <viewer:ReportViewer x:Name="viewerInstance" ZoomMode="FullPage" PromptAreaCollapsed="True" ViewButtonClick="HandleReportViewerViewButtonClicked">
+
+            </viewer:ReportViewer>
+        </my:WindowsFormsHost> 
+    </Grid>
+</UserControl>

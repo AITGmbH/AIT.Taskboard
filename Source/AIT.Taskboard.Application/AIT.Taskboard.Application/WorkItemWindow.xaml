@@ -1,0 +1,40 @@
+﻿<Window x:Class="AIT.Taskboard.Application.WorkItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:forms="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration" 
+        xmlns:local="clr-namespace:AIT.Taskboard.Application" WindowStartupLocation="CenterOwner" 
+        ShowInTaskbar="False"
+        Closing="HandleWindowClosing"
+        WindowStyle="ToolWindow">
+    <Window.Title>
+        <MultiBinding StringFormat="{}{0} {1}: {2}">
+            <Binding Path="WorkItem.Type.Name" />
+            <Binding Path="WorkItem.Id" />
+            <Binding Path="WorkItem.Title" />
+        </MultiBinding>
+    </Window.Title>
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="ExecuteClose" />
+        <CommandBinding Command="Refresh" Executed="ExecuteRefresh" CanExecute="CanExecuteRefresh" />
+        <CommandBinding Command="Save" Executed="ExecuteSave"  CanExecute="CanExecuteSave"/>
+        <CommandBinding Command="local:TaskboardCommands.SaveAndClose" Executed="ExecuteSaveAndClose"  CanExecute="CanExecuteSaveAndClose"/>
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Key="F4" Modifiers="Control" Command="Close" />
+        <KeyBinding Key="F5" Command="Refresh" />
+        <KeyBinding Key="S" Modifiers="Control" Command="Save" />
+    </Window.InputBindings>
+    <DockPanel LastChildFill="True">
+          <!-- Enable a tray if we want to add several toolbars
+          <ToolBarTray Background="White" DockPanel.Dock="Top"> -->
+            <ToolBar Band="1" BandIndex="1" DockPanel.Dock="Top">                
+                <Button Content="Close" Command="Close"/>
+                <Button Content="Save and Close" Command="local:TaskboardCommands.SaveAndClose"/>
+                <Button Content="Save" Command="Save"/>
+                <Button Content="Refresh" Command="Refresh"/>
+            </ToolBar>
+        <!-- </ToolBarTray> -->
+        <forms:WindowsFormsHost DockPanel.Dock="Top"  Name="wiInfoBarHost" />        
+        <forms:WindowsFormsHost Name="wiFormHost"/>
+    </DockPanel>    
+</Window>

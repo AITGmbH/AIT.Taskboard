@@ -1,0 +1,130 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIT.Taskboard.Application", "AIT.Taskboard.Application\AIT.Taskboard.Application.csproj", "{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Model", "Model", "{D9AC4921-0CA4-4DC2-BB40-8F05FDC50A96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "View", "View", "{697AE30C-DE24-4026-AA54-CBD5240E1595}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModel", "ViewModel", "{B5A87703-9907-49BB-AE8E-AE779B70B859}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIT.Taskboard.Model", "AIT.Taskboard.Model\AIT.Taskboard.Model.csproj", "{4A060352-572E-41DF-A713-7FCAC22C10DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIT.Taskboard.ViewModel", "AIT.Taskboard.ViewModel\AIT.Taskboard.ViewModel.csproj", "{F02F58B3-56BB-4B5C-9603-A1C993BE2007}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5212596B-61CA-492E-A394-9622516F83A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIT.Taskboard.UnitTests", "AIT.Taskboard.UnitTests\AIT.Taskboard.UnitTests.csproj", "{D4C62074-5973-42FF-A7C3-03B3DD9651B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{516D6C1F-B4F1-4D89-A57D-2386C035704D}"
+	ProjectSection(SolutionItems) = preProject
+		AIT.Taskboard.Application.vsmdi = AIT.Taskboard.Application.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIT.Taskboard.Interface", "AIT.Taskboard.Interface\AIT.Taskboard.Interface.csproj", "{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 6
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://teamservice.aitag.com/tfs/defaultcollection
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = AIT.Taskboard.Model\\AIT.Taskboard.Model.csproj
+		SccProjectTopLevelParentUniqueName1 = AIT.Taskboard.Application.sln
+		SccProjectName1 = AIT.Taskboard.Model
+		SccLocalPath1 = AIT.Taskboard.Model
+		SccProjectUniqueName2 = AIT.Taskboard.ViewModel\\AIT.Taskboard.ViewModel.csproj
+		SccProjectTopLevelParentUniqueName2 = AIT.Taskboard.Application.sln
+		SccProjectName2 = AIT.Taskboard.ViewModel
+		SccLocalPath2 = AIT.Taskboard.ViewModel
+		SccProjectUniqueName3 = AIT.Taskboard.UnitTests\\AIT.Taskboard.UnitTests.csproj
+		SccProjectTopLevelParentUniqueName3 = AIT.Taskboard.Application.sln
+		SccProjectName3 = AIT.Taskboard.UnitTests
+		SccLocalPath3 = AIT.Taskboard.UnitTests
+		SccProjectUniqueName4 = AIT.Taskboard.Interface\\AIT.Taskboard.Interface.csproj
+		SccProjectTopLevelParentUniqueName4 = AIT.Taskboard.Application.sln
+		SccProjectName4 = AIT.Taskboard.Interface
+		SccLocalPath4 = AIT.Taskboard.Interface
+		SccProjectUniqueName5 = AIT.Taskboard.Application\\AIT.Taskboard.Application.csproj
+		SccProjectTopLevelParentUniqueName5 = AIT.Taskboard.Application.sln
+		SccProjectName5 = AIT.Taskboard.Application
+		SccLocalPath5 = AIT.Taskboard.Application
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = AIT.Taskboard.Application.vsmdi
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}.Debug|x86.ActiveCfg = Debug|x86
+		{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}.Debug|x86.Build.0 = Debug|x86
+		{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}.Release|Any CPU.ActiveCfg = Release|x86
+		{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}.Release|Mixed Platforms.Build.0 = Release|x86
+		{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}.Release|x86.ActiveCfg = Release|x86
+		{12C1E382-A4B2-4FF5-99E8-21C351A4B01D}.Release|x86.Build.0 = Release|x86
+		{4A060352-572E-41DF-A713-7FCAC22C10DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A060352-572E-41DF-A713-7FCAC22C10DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A060352-572E-41DF-A713-7FCAC22C10DD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{4A060352-572E-41DF-A713-7FCAC22C10DD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{4A060352-572E-41DF-A713-7FCAC22C10DD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4A060352-572E-41DF-A713-7FCAC22C10DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A060352-572E-41DF-A713-7FCAC22C10DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A060352-572E-41DF-A713-7FCAC22C10DD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{4A060352-572E-41DF-A713-7FCAC22C10DD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{4A060352-572E-41DF-A713-7FCAC22C10DD}.Release|x86.ActiveCfg = Release|Any CPU
+		{F02F58B3-56BB-4B5C-9603-A1C993BE2007}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F02F58B3-56BB-4B5C-9603-A1C993BE2007}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F02F58B3-56BB-4B5C-9603-A1C993BE2007}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{F02F58B3-56BB-4B5C-9603-A1C993BE2007}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{F02F58B3-56BB-4B5C-9603-A1C993BE2007}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F02F58B3-56BB-4B5C-9603-A1C993BE2007}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F02F58B3-56BB-4B5C-9603-A1C993BE2007}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F02F58B3-56BB-4B5C-9603-A1C993BE2007}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{F02F58B3-56BB-4B5C-9603-A1C993BE2007}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{F02F58B3-56BB-4B5C-9603-A1C993BE2007}.Release|x86.ActiveCfg = Release|Any CPU
+		{D4C62074-5973-42FF-A7C3-03B3DD9651B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4C62074-5973-42FF-A7C3-03B3DD9651B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4C62074-5973-42FF-A7C3-03B3DD9651B3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D4C62074-5973-42FF-A7C3-03B3DD9651B3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D4C62074-5973-42FF-A7C3-03B3DD9651B3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D4C62074-5973-42FF-A7C3-03B3DD9651B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4C62074-5973-42FF-A7C3-03B3DD9651B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4C62074-5973-42FF-A7C3-03B3DD9651B3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D4C62074-5973-42FF-A7C3-03B3DD9651B3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D4C62074-5973-42FF-A7C3-03B3DD9651B3}.Release|x86.ActiveCfg = Release|Any CPU
+		{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{12C1E382-A4B2-4FF5-99E8-21C351A4B01D} = {697AE30C-DE24-4026-AA54-CBD5240E1595}
+		{4A060352-572E-41DF-A713-7FCAC22C10DD} = {D9AC4921-0CA4-4DC2-BB40-8F05FDC50A96}
+		{814B9FD9-8BC9-4FA5-A3BB-05CE9B5C16DD} = {D9AC4921-0CA4-4DC2-BB40-8F05FDC50A96}
+		{F02F58B3-56BB-4B5C-9603-A1C993BE2007} = {B5A87703-9907-49BB-AE8E-AE779B70B859}
+		{D4C62074-5973-42FF-A7C3-03B3DD9651B3} = {5212596B-61CA-492E-A394-9622516F83A8}
+		{516D6C1F-B4F1-4D89-A57D-2386C035704D} = {5212596B-61CA-492E-A394-9622516F83A8}
+	EndGlobalSection
+EndGlobal
