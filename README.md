@@ -5,7 +5,7 @@ The AIT Task Board offers optimized visualization of the Team Foundation Server 
 It can be used independently of the applied process template and utilizes the link types introduced in the Team Foundation Server 2010. 
 It is therefore possible to use the task board as the SCRUM Board or KANBAN Board.
 
-For more details check the [Quickstart](./doc/taskboard.quickstart.md)
+For more details check the [Quickstart](./Doc/Taskboard.Quickstart.md)
 
 There is also a set of videos explaining how to use the AIT Task Board:
 

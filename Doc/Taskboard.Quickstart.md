@@ -1,8 +1,5 @@
-Quick Start
 
 ![](./media/image3.png)
-
-Table of Contents
 
 System Requirements
 ===================
@@ -13,18 +10,6 @@ System Requirements
 -   Team Foundation Explorer 2010
 
 -   Team Foundation Server 2010
-
-Installation Manual
-===================
-
-To install the AIT TeamSystemPro Task Board, unpack the file AIT.Task
-board.zip and execute AIT.Task board.Application.application. The
-following screen will appear:
-
-![](./media/image4.png)
-
-Click on *Install* to start the setup. When the installation succeeds
-the AIT Task Board application will start.
 
 General user interface description
 ==================================
